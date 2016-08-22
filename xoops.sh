@@ -30,14 +30,21 @@ rm -rf XoopsCore25-2.5.8
 rm -rf tadtools-master
 rm -rf tad_adm-master
 
-wget 'http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=108&cat_sn=16&name=xoopscore25-2.5.8_tw_20160529.zip' -O xoops.zip
+
+if ! [ -f xoops.zip ];then
+	wget 'http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=108&cat_sn=16&name=xoopscore25-2.5.8_tw_20160529.zip' -O xoops.zip
+fi
 unzip -q xoops.zip
 
-wget --no-check-certificate https://github.com/tad0616/tadtools/archive/master.zip -O tadtools.zip
+if ! [ -f tadtools.zip ];then
+	wget --no-check-certificate https://github.com/tad0616/tadtools/archive/master.zip -O tadtools.zip
+fi
 unzip -q tadtools.zip
 chown -R apache.apache tadtools-master
 
-wget --no-check-certificate https://github.com/tad0616/tad_adm/archive/master.zip -O tad_adm.zip
+if ! [ -f tad_adm.zip ];then
+	wget --no-check-certificate https://github.com/tad0616/tad_adm/archive/master.zip -O tad_adm.zip
+fi
 unzip -q tad_adm.zip
 chown -R apache.apache tad_adm-master
 
