@@ -26,6 +26,10 @@ function getIP(){
 
 getIP
 
+rm -rf XoopsCore25-2.5.8
+rm -rf tadtools-master
+rm -rf tad_adm-master
+
 wget 'http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=108&cat_sn=16&name=xoopscore25-2.5.8_tw_20160529.zip' -O xoops.zip
 unzip -q xoops.zip
 
@@ -55,17 +59,44 @@ do
 	[ -z "$SITE_root_type" ] && SITE_root_type=1
 	case $SITE_root_type in
 		1|2)
-		echo ""
-		echo "---------------------------"
-		echo $MSG_YOU_CHOOSE $SITE_root_type
-		echo "---------------------------"
-		echo ""
-		break
+		#echo ""
+		#echo "---------------------------"
+		#echo $MSG_YOU_CHOOSE $SITE_root_type
+		#echo "---------------------------"
+		#echo ""
+		#break
 		;;
 		*)
 		echo $MSG_INPUT_ONLY "1,2"
 	esac
 done
+
+# Choose XOOPS sendmail type
+while true
+do
+	echo $MSG_SENDMAIL_TYPE
+	echo -e "\t\e[32m1\e[0m. Gmail/"
+	echo -e "\t\e[32m2\e[0m." $MSG_SENDMAIL
+	read -p "$MSG_INPUT_1" SITE_sendmail_type
+	[ -z "$SITE_sendmail_type" ] && SITE_sendmail_type=1
+	case $SITE_sendmail_type in
+		1|2)
+		#echo ""
+		#echo "---------------------------"
+		#echo $MSG_YOU_CHOOSE $SITE_sendmail_type
+		#echo "---------------------------"
+		#echo ""
+		#break
+		;;
+		*)
+		echo $MSG_INPUT_ONLY "1,2"
+	esac
+done
+
+if [ $SITE_sendmail_type -eq 1 ]; then
+	sed -i 's/^.*public $SMTP_PORT.*=.*/public $SMTP_PORT = 587;"/g' htdocs/class/mail/phpmailer/class.smtp.php
+fi
+
 
 if [ $SITE_root_type -eq 1 ]; then
 	mv /var/www/html /var/www/html_org
