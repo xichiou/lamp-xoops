@@ -1,5 +1,7 @@
 MSG_AUTHOR="Chiou, Hsienhsi"
 MSG_CHOOSE_TYPE="Please choose your XOOPS URL type:"
+MSG_SENDMAIL_TYPE="Please choose your XOOPS sendmail type:"
+MSG_SENDMAIL="Linux sendmail"
 MSG_INPUT_1="Please input a number:(Default 1) "
 MSG_YOU_CHOOSE="You choose ="
 MSG_INPUT_ONLY="Input error! Please only input number"
