@@ -1,0 +1,3 @@
+MSG_LAMP_OK="Congratulations, Yum install LAMP completed!"
+MSG_WEBSITE="Your Default Website: "
+MSG_PASSWORD="password"
