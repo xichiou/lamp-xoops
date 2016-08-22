@@ -101,7 +101,7 @@ do
 done
 
 if [ $SITE_sendmail_type -eq 1 ]; then
-	sed -i 's/^.*public $SMTP_PORT.*=.*/public $SMTP_PORT = 587;"/g' htdocs/class/mail/phpmailer/class.smtp.php
+	sed -i 's/^.*public $SMTP_PORT.*=.*/public $SMTP_PORT =587; \/\/Gmail/g' htdocs/class/mail/phpmailer/class.smtp.php
 fi
 
 
