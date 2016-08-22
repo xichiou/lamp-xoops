@@ -18,7 +18,7 @@ cur_dir=`pwd`
 
 # Get public IP
 function getIP(){
-    IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
+    IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[1-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
     if [[ "$IP" = "" ]]; then
         IP=`curl -s -4 icanhazip.com`
     fi
@@ -64,7 +64,7 @@ do
 		#echo $MSG_YOU_CHOOSE $SITE_root_type
 		#echo "---------------------------"
 		#echo ""
-		#break
+		break
 		;;
 		*)
 		echo $MSG_INPUT_ONLY "1,2"
@@ -75,7 +75,7 @@ done
 while true
 do
 	echo $MSG_SENDMAIL_TYPE
-	echo -e "\t\e[32m1\e[0m. Gmail/"
+	echo -e "\t\e[32m1\e[0m. Gmail"
 	echo -e "\t\e[32m2\e[0m." $MSG_SENDMAIL
 	read -p "$MSG_INPUT_1" SITE_sendmail_type
 	[ -z "$SITE_sendmail_type" ] && SITE_sendmail_type=1
@@ -86,7 +86,7 @@ do
 		#echo $MSG_YOU_CHOOSE $SITE_sendmail_type
 		#echo "---------------------------"
 		#echo ""
-		#break
+		break
 		;;
 		*)
 		echo $MSG_INPUT_ONLY "1,2"
