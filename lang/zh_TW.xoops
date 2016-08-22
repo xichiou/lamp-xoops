@@ -1,5 +1,7 @@
 MSG_AUTHOR="邱顯錫"
 MSG_CHOOSE_TYPE="請選擇 XOOPS 網址型態:"
+MSG_SENDMAIL_TYPE="你的 XOOPS 要使用何者寄信:"
+MSG_SENDMAIL="Linux 內部寄信程式sendmail"
 MSG_INPUT_1="請輸入數字:(內定值 1) "
 MSG_YOU_CHOOSE="你選擇的是 ="
 MSG_INPUT_ONLY="輸入錯誤! 只能輸入數字"
