@@ -1,0 +1,5 @@
+MSG_LAMP_OK="恭喜! LAMP 安裝完畢"
+MSG_MYSQL_PASSWORD="MySQL 管理員 root 的密碼:"
+MSG_MUST_ROOT="錯誤：必須以root身分執行"
+MSG_MUST_NUM="輸入錯誤：只能輸入以下數字"
+MSG_PASSWORD="密碼"
