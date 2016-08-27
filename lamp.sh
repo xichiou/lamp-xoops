@@ -125,6 +125,8 @@ function pre_installation_settings(){
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
     char=`get_char`
 
+    echo $dbrootpwd >> /root/mysql_password.txt
+
     yum -y install unzip wget
     yum -y install epel-release
     wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
