@@ -39,8 +39,10 @@ function install_lamp(){
     echo ""
     echo $MSG_LAMP_OK
     echo $MSG_MYSQL_PASSWORD $dbrootpwd
+    echo $MSG_SAVE_MYSQL_PASSWORD
+    echo $dbrootpwd >> /root/mysql_password.txt
     echo ""
-    echo ""
+
 }
 
 # Make sure only root can run our script
@@ -125,7 +127,6 @@ function pre_installation_settings(){
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
     char=`get_char`
 
-    echo $dbrootpwd >> /root/mysql_password.txt
 
     yum -y install unzip wget
     yum -y install epel-release
