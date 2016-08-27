@@ -62,7 +62,6 @@ fi
 # Disable selinux
 function disable_root_ssh(){
     sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
-fi
 }
 
 # Pre-installation settings
