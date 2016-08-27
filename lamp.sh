@@ -28,6 +28,7 @@ function getIP(){
 function install_lamp(){
     rootness
     disable_selinux
+    disable_root_ssh
     pre_installation_settings
     install_apache
     #install_database
@@ -55,6 +56,12 @@ function disable_selinux(){
 if [ -s /etc/selinux/config ] && grep 'SELINUX=enforcing' /etc/selinux/config; then
     sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
     setenforce 0
+fi
+}
+
+# Disable selinux
+function disable_root_ssh(){
+    sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 fi
 }
 
