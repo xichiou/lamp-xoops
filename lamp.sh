@@ -135,6 +135,11 @@ function pre_installation_settings(){
 
     #yum -y update
 
+    yum -y install vim-enhanced
+    echo "alias vi='vim'" >> /etc/profile
+    echo "set nu" >> /etc/vimrc
+    source /etc/profile
+
     yum -y install ntp
     ntpdate -d tick.stdtime.gov.tw
 
