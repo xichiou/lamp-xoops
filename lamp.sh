@@ -144,8 +144,14 @@ function pre_installation_settings(){
     ntpdate -d tick.stdtime.gov.tw
 
     if ! grep 'ntpdate' /etc/crontab; then
-    	echo '0 0-23 * * *  root /usr/sbin/ntpdate watch.stdtime.gov.tw > /dev/null 2>&1' >>/etc/crontab
+        echo '0 * * * *  root /usr/sbin/ntpdate watch.stdtime.gov.tw > /dev/null 2>&1' >>/etc/crontab
     fi
+
+    if ! grep 'yum' /etc/crontab; then
+    	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log > /dev/null 2>&1' >>/etc/crontab
+    fi
+
+
 }
 
 # Install Apache
