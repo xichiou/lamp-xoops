@@ -133,7 +133,6 @@ function pre_installation_settings(){
     wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
     rpm -Uvh remi-release-7*.rpm
 
-    #yum -y update
 
     yum -y install vim-enhanced
     echo "alias vi='vim'" >> /etc/profile
@@ -148,7 +147,7 @@ function pre_installation_settings(){
     fi
 
     if ! grep 'yum' /etc/crontab; then
-    	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log > /dev/null 2>&1' >>/etc/crontab
+    	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1' >>/etc/crontab
     fi
 
 
