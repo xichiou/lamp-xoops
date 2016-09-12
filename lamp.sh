@@ -150,6 +150,12 @@ function pre_installation_settings(){
     	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1' >>/etc/crontab
     fi
 
+    if ! grep 'backup_db.sh' /etc/crontab; then
+        cp include/backup_db.sh /root
+        chmod +x /root/backup_db.sh
+    	echo '5 1 * * * root /root/backup_db.sh > /dev/null 2>&1' >>/etc/crontab
+    fi
+
 
 }
 
