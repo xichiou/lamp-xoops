@@ -11,24 +11,22 @@ SQL_DIR="/var/lib/mysql"
 SQL_ZIP="DB"
 
 TTIME=`date "+%Y%m%d_%H%M%S"`
-## 結果會變成 20031005_201851 年月日時分秒
+## 結果會變成 20161005_201851 年月日時分秒
 
-/sbin/service httpd stop ## 停止apache
-/sbin/service mysqld stop ## 停止資料庫
+/bin/systemctl stop httpd
+/bin/systemctl stop mariadb
 
-if [ -d $BAK_DIR ]; then
-  echo "目錄已存在"
-else
+if ! [ -d $BAK_DIR ]; then
   mkdir $BAK_DIR
 fi
 
 cd $SQL_DIR
 cd ..
-echo ${BAK_DIR}/${SQL_ZIP}_${TTIME}.tgz
+## echo ${BAK_DIR}/${SQL_ZIP}_${TTIME}.tgz
 /bin/tar zcf ${BAK_DIR}/${SQL_ZIP}_${TTIME}.tgz mysql
 
-/sbin/service mysqld start
-/sbin/service httpd start
+/bin/systemctl start mariadb
+/bin/systemctl start httpd
 
 find $BAK_DIR -ctime +30|xargs rm
 
