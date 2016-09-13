@@ -18,5 +18,6 @@
 
     cd /root/DB_Backup
     /usr/bin/grive –a
+    ![grive -a](imaages/grive_auth.png)
 
     登入 Gmail，驗證 Grive ，讓 Grive 可以存取 Google Drive
