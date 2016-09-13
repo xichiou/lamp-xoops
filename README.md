@@ -19,7 +19,7 @@
     cd /root/DB_Backup
     /usr/bin/grive –a
 
-![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive_auth.png)
+![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
     
     登入 Gmail，驗證 Grive，取得授權碼，再貼回上圖 
     
