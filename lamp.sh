@@ -150,6 +150,8 @@ function pre_installation_settings(){
     	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1' >>/etc/crontab
     fi
 
+    yum -y install grive2
+
     if ! grep 'backup_db.sh' /etc/crontab; then
         cp include/backup_db.sh /root
         chmod +x /root/backup_db.sh

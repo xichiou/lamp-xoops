@@ -9,8 +9,14 @@
 ### 安裝 LAMP
 
     ./lamp.sh
-    
+
 ### 安裝 XOOPS
 
     ./xoops.sh
 
+### 設定 Grive，同步資料庫到雲端
+
+    cd /root/DB_Backup
+    /usr/bin/grive –a
+
+    登入 Gmail，驗證 Grive ，讓 Grive 可以存取 Google Drive

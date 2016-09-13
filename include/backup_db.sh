@@ -28,6 +28,11 @@ cd ..
 /bin/systemctl start mariadb
 /bin/systemctl start httpd
 
+## 保留資料庫最近３０天，超過３０天自動刪除
 find $BAK_DIR -ctime +30|xargs rm
+
+## 每天自動同步上面的目錄到雲端硬碟，保留資料庫最近３０天
+cd $BAK_DIR
+/usr/bin/grive
 
 echo Done OK
