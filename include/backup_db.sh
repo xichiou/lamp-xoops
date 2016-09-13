@@ -2,7 +2,7 @@
 ## 本程式用來備份主機資料庫
 
 ##備份檔放置位置
-BAK_DIR="/root/DB"
+BAK_DIR="/root/DB_Backup"
 
 ## 資料庫實際位置
 SQL_DIR="/var/lib/mysql"
