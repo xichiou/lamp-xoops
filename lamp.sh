@@ -166,6 +166,8 @@ function install_apache(){
     # Install Apache
     echo "開始安裝 Apache..."
     yum -y install httpd
+    sed -i 's/Options Indexes FollowSymLinks/Options FollowSymLinks/g' /etc/httpd/conf/httpd.conf
+    sed -i 's/DirectoryIndex index.html$/DirectoryIndex index.html index.htm/g' /etc/httpd/conf/httpd.conf
     systemctl enable httpd
     systemctl start httpd
     echo "Apache 安裝完畢"
