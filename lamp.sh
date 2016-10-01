@@ -29,6 +29,11 @@ function install_lamp(){
     rootness
     disable_selinux
     disable_root_ssh
+    
+    #disable_firewall
+    systemctl stop firewalld
+    systemctl disable firewalld
+    
     pre_installation_settings
     install_apache
     #install_database
