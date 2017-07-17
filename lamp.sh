@@ -96,6 +96,11 @@ function pre_installation_settings(){
     echo -e "你的主要 IP 是\t\033[32m$IP\033[0m"
     echo ""
 
+    echo "設定資料庫備份執行檔 backup_db.sh"
+    sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP/g" include/backup_db.sh
+    echo "資料庫備份在 /root\/DB_Backup\/$IP"
+    echo ""
+
     # Set MySQL root password
     echo "請輸入 MySQL or MariaDB 管理員 root 的密碼:"
     read -p "(直接按下ENTER採用內定密碼: db9999):" dbrootpwd
