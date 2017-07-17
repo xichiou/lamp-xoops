@@ -96,11 +96,6 @@ function pre_installation_settings(){
     echo -e "你的主要 IP 是\t\033[32m$IP\033[0m"
     echo ""
 
-    echo "設定資料庫備份執行檔 backup_db.sh"
-    sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP/g" include/backup_db.sh
-    echo "資料庫備份在 /root\/DB_Backup\/$IP"
-    echo ""
-
     # Set MySQL root password
     echo "請輸入 MySQL or MariaDB 管理員 root 的密碼:"
     read -p "(直接按下ENTER採用內定密碼: db9999):" dbrootpwd
@@ -155,6 +150,23 @@ function pre_installation_settings(){
     fi
 
 
+    echo "使用 Google 雲端硬碟備份你的資料庫嗎? [Y/n]"
+    char=`get_char`
+    if [[ $char = "Y" || $char = "y" || $char = "" ]]
+    then
+      yum -y install grive2
+      echo "設定資料庫備份執行檔 backup_db.sh"
+      sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP/g" include/backup_db.sh
+      sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
+      echo "資料庫備份在 /root\/DB_Backup\/$IP"
+      mkdir "/root/DB_Backup/$IP" -p
+      echo "準備認證 Google雲端硬碟，請參考網站說明操作 https://github.com/xichiou/lamp-xoops"
+      girve -a -s $IP
+      echo "備份到 Google雲端硬碟 設定完畢 !!"
+
+    fi
+    echo ""
+
 
     echo ""
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
@@ -183,7 +195,6 @@ function pre_installation_settings(){
     	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1' >>/etc/crontab
     fi
 
-    yum -y install grive2
 
     if ! grep 'backup_db.sh' /etc/crontab; then
         cp include/backup_db.sh /root

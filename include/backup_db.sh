@@ -17,7 +17,7 @@ TTIME=`date "+%Y%m%d_%H%M%S"`
 /bin/systemctl stop mariadb
 
 if ! [ -d $BAK_DIR ]; then
-  mkdir $BAK_DIR
+  mkdir $BAK_DIR -p
 fi
 
 cd $SQL_DIR
@@ -34,6 +34,6 @@ find $BAK_DIR -ctime +30|xargs rm
 ## 每天自動同步上面的目錄到雲端硬碟，保留資料庫最近３０天
 cd $BAK_DIR
 cd ..
-/usr/bin/grive
+#/usr/bin/grive
 
 echo Done OK
