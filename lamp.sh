@@ -29,11 +29,11 @@ function install_lamp(){
     rootness
     disable_selinux
     disable_root_ssh
-    
+
     #disable_firewall
     systemctl stop firewalld
     systemctl disable firewalld
-    
+
     pre_installation_settings
     install_apache
     #install_database
@@ -71,6 +71,15 @@ function disable_root_ssh(){
     sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 }
 
+# Disable IPV6
+function disable_ipv6(){
+    echo "#disabl ipv6" >> /etc/sysctl.conf
+    echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+    echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+    sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    sysctl -w net.ipv6.conf.default.disable_ipv6=1
+}
+
 # Pre-installation settings
 function pre_installation_settings(){
     echo ""
@@ -98,14 +107,15 @@ function pre_installation_settings(){
     echo "資料庫密碼 = $dbrootpwd"
     echo "---------------------------"
     echo ""
-     # Choose PHP version
+
+    # Choose PHP version
     while true
     do
     echo "請選擇 PHP 版本:"
     echo -e "\t\033[32m1\033[0m. 安裝 PHP-5.6"
     echo -e "\t\033[32m2\033[0m. 安裝 PHP-7.0"
-    read -p "請輸入數字:(直接按下ENTER採用內定值 1) " PHP_version
-    [ -z "$PHP_version" ] && PHP_version=1
+    read -p "請輸入數字:(直接按下ENTER採用內定值 2) " PHP_version
+    [ -z "$PHP_version" ] && PHP_version=2
     case $PHP_version in
         1|2)
         #echo ""
@@ -119,6 +129,7 @@ function pre_installation_settings(){
         echo $MSG_MUST_NUM "1,2"
     esac
     done
+
     get_char(){
         SAVEDSTTY=`stty -g`
         stty -echo
@@ -128,6 +139,18 @@ function pre_installation_settings(){
         stty echo
         stty $SAVEDSTTY
     }
+
+    echo ""
+    echo "建議關閉這台伺服器 IPV6 網路功能，你要關閉? [Y/n]"
+    char=`get_char`
+    if [[ $char = "Y" || $char = "y" || $char = "" ]]
+    then
+     echo "關閉 IPV6"
+     disable_ipv6
+    fi
+
+
+
     echo ""
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
     char=`get_char`
