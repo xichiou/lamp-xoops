@@ -15,10 +15,7 @@
 
     ./xoops.sh
 
-### 設定 Grive，讓 Grive 可以存取 Google Drive，同步資料庫到雲端
-
-    cd /root/DB_Backup
-    /usr/bin/grive –a
+### lamp.sh 安裝過程中，讓 Grive 可以存取 Google Drive，同步資料庫到雲端
 
 ![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
 
