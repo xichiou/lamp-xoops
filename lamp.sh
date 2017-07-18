@@ -189,7 +189,9 @@ function pre_installation_settings(){
 
       cd /root/DB_Backup
       /usr/bin/grive -a -s $IP
-      echo "備份到 Google雲端硬碟 設定完畢 !!"
+      echo ""
+      echo "如果看到上面有 sync \"./$IP\" 的訊息，表示備份到 Google雲端硬碟 的設定是成功的 !!"
+      sleep 5
     fi
 
     if ! grep 'backup_db.sh' /etc/crontab; then
