@@ -154,6 +154,7 @@ function pre_installation_settings(){
     char=`get_char`
     if [[ $char = "Y" || $char = "y" || $char = "" ]]
     then
+      echo "使用 Google 雲端硬碟備份你的資料庫"
       use_grive="Y"
     else
       use_grive="N"
@@ -171,6 +172,32 @@ function pre_installation_settings(){
     wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
     rpm -Uvh remi-release-7*.rpm
 
+    if [ $use_grive = "Y" ]
+    then
+      yum -y install grive2
+      cls
+      echo ""
+      echo ""
+      echo "設定資料庫備份執行檔 backup_db.sh"
+      sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh
+      sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
+      echo "資料庫備份在 /root/DB_Backup/$IP/MySQL"
+      mkdir "/root/DB_Backup/$IP/MySQL" -p
+      mkdir "/root/DB_Backup/$IP/html" -p
+      echo "準備認證 Google雲端硬碟，請"
+      echo "參考網站說明操作 https://github.com/xichiou/lamp-xoops"
+
+      cd /root/DB_Backup
+      /usr/bin/grive -a -s $IP
+      echo "備份到 Google雲端硬碟 設定完畢 !!"
+    fi
+
+    if ! grep 'backup_db.sh' /etc/crontab; then
+        cp include/backup_db.sh /root
+        chmod +x /root/backup_db.sh
+      echo '5 1 * * * root /root/backup_db.sh > /dev/null 2>&1' >>/etc/crontab
+    fi
+
 
     yum -y install vim-enhanced
     echo "alias vi='vim'" >> /etc/profile
@@ -187,29 +214,6 @@ function pre_installation_settings(){
     if ! grep 'yum' /etc/crontab; then
     	echo '5 3 * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1' >>/etc/crontab
     fi
-
-    if [ $use_grive = "Y" ]
-    then
-      yum -y install grive2
-      echo ""
-      echo ""
-      echo "設定資料庫備份執行檔 backup_db.sh"
-      sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh
-      sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
-      echo "資料庫備份在 /root/DB_Backup/$IP/MySQL"
-      mkdir "/root/DB_Backup/$IP/MySQL" -p
-      mkdir "/root/DB_Backup/$IP/html" -p
-      echo "準備認證 Google雲端硬碟，請參考網站說明操作 https://github.com/xichiou/lamp-xoops"
-      /usr/bin/grive -a -s $IP
-      echo "備份到 Google雲端硬碟 設定完畢 !!"
-    fi
-
-    if ! grep 'backup_db.sh' /etc/crontab; then
-        cp include/backup_db.sh /root
-        chmod +x /root/backup_db.sh
-    	echo '5 1 * * * root /root/backup_db.sh > /dev/null 2>&1' >>/etc/crontab
-    fi
-
 
 }
 
