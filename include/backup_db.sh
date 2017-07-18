@@ -33,7 +33,7 @@ find $BAK_DIR -ctime +30|xargs rm
 
 ## 每天自動同步上面的目錄到雲端硬碟，保留資料庫最近３０天
 cd $BAK_DIR
-cd ..
+cd ../..
 #/usr/bin/grive
 
 echo Done OK

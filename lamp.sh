@@ -156,10 +156,11 @@ function pre_installation_settings(){
     then
       yum -y install grive2
       echo "設定資料庫備份執行檔 backup_db.sh"
-      sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP/g" include/backup_db.sh
+      sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh
       sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
-      echo "資料庫備份在 /root\/DB_Backup\/$IP"
-      mkdir "/root/DB_Backup/$IP" -p
+      echo "資料庫備份在 /root/DB_Backup/$IP/MySQL"
+      mkdir "/root/DB_Backup/$IP/MySQL" -p
+      mkdir "/root/DB_Backup/$IP/html" -p
       echo "準備認證 Google雲端硬碟，請參考網站說明操作 https://github.com/xichiou/lamp-xoops"
       /usr/bin/girve -a -s $IP
       echo "備份到 Google雲端硬碟 設定完畢 !!"
