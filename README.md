@@ -6,6 +6,7 @@
     cd lamp-xoops-master/
     chmod +x *.sh
 
+
 ### 安裝 LAMP
 
     ./lamp.sh
@@ -20,9 +21,9 @@
     /usr/bin/grive –a
 
 ![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
-    
-    登入 Gmail，驗證 Grive，取得授權碼，再貼回上圖 
-    
+
+    登入 Gmail，驗證 Grive，取得授權碼，再貼回上圖
+
 ![允許](https://github.com/xichiou/lamp-xoops/blob/master/images/grive_auth.png)
 ![取得授權碼](https://github.com/xichiou/lamp-xoops/blob/master/images/grive_auth-2.png)
 

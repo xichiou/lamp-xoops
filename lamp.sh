@@ -162,7 +162,7 @@ function pre_installation_settings(){
       mkdir "/root/DB_Backup/$IP/MySQL" -p
       mkdir "/root/DB_Backup/$IP/html" -p
       echo "準備認證 Google雲端硬碟，請參考網站說明操作 https://github.com/xichiou/lamp-xoops"
-      /usr/bin/girve -a -s $IP
+      /usr/bin/grive -a -s $IP
       echo "備份到 Google雲端硬碟 設定完畢 !!"
 
     fi
