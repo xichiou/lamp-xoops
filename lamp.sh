@@ -140,14 +140,14 @@ function pre_installation_settings(){
         stty $SAVEDSTTY
     }
 
-    echo ""
-    echo "建議關閉這台伺服器 IPV6 網路功能，你要關閉? [Y/n]"
-    char=`get_char`
-    if [[ $char = "Y" || $char = "y" || $char = "" ]]
-    then
-     echo "關閉 IPV6"
-     disable_ipv6
-    fi
+    #echo ""
+    #echo "建議關閉這台伺服器 IPV6 網路功能，你要關閉? [Y/n]"
+    #char=`get_char`
+    #if [[ $char = "Y" || $char = "y" || $char = "" ]]
+    #then
+    # echo "關閉 IPV6"
+    # disable_ipv6
+    #fi
 
 
     echo "使用 Google 雲端硬碟備份你的資料庫嗎? [Y/n]"
@@ -189,6 +189,7 @@ function pre_installation_settings(){
 
       cd /root/DB_Backup
       /usr/bin/grive -a -s $IP
+      cd -
       echo ""
       echo "如果看到上面有 sync \"./$IP\" 的訊息，表示備份到 Google雲端硬碟 的設定是成功的 !!"
       sleep 5
