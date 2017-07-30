@@ -5,11 +5,8 @@
     unzip lamp-xoops.zip
     cd lamp-xoops-master/
     chmod +x *.sh
-	cls;
+	clear;
 	
- 
-
-
 ### 安裝 LAMP
 
     ./lamp.sh
