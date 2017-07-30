@@ -117,11 +117,19 @@ function pre_installation_settings(){
     read -p "請輸入數字:(直接按下ENTER採用內定值 2) " PHP_version
     [ -z "$PHP_version" ] && PHP_version=2
     case $PHP_version in
-        1|2)
+        1)
         #echo ""
-        #echo "---------------------------"
-        #echo "你選擇 = $PHP_version                  "
-        #echo "---------------------------"
+        echo "---------------------------"
+        echo "你選擇安裝 PHP-5.6"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        2)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 PHP-7.0"
+        echo "---------------------------"
         #echo ""
         break
         ;;
@@ -129,6 +137,9 @@ function pre_installation_settings(){
         echo $MSG_MUST_NUM "1,2"
     esac
     done
+
+    echo ""
+    echo ""
 
     get_char(){
         SAVEDSTTY=`stty -g`
@@ -140,28 +151,57 @@ function pre_installation_settings(){
         stty $SAVEDSTTY
     }
 
-    #echo ""
-    #echo "建議關閉這台伺服器 IPV6 網路功能，你要關閉? [Y/n]"
-    #char=`get_char`
-    #if [[ $char = "Y" || $char = "y" || $char = "" ]]
-    #then
-    # echo "關閉 IPV6"
-    # disable_ipv6
-    #fi
 
-
-    echo "使用 Google 雲端硬碟備份你的資料庫嗎? [Y/n]"
-    char=`get_char`
-    if [[ $char = "Y" || $char = "y" || $char = "" ]]
-    then
-      echo "使用 Google 雲端硬碟備份你的資料庫"
-      use_grive="Y"
-    else
-      use_grive="N"
-    fi
+    # disable_ipv6 ?
+    while true
+    do
+    read -p "關閉這台伺服器 IPV6 網路功能，你要關閉? [y/n]" ANSER
+    case $ANSER in
+        y|Y)
+        echo "-----------------------------"
+        echo "你選擇關閉這台伺服器 IPV6 的網路!"
+        echo "-----------------------------"
+        disable_ipv6
+        break
+        ;;
+        n|N)
+        break
+        ;;
+        *)
+        echo "請輸入 Y 或 N"
+        echo ""
+    esac
+    done
+    echo ""
     echo ""
 
 
+
+    # Google Drive ?
+    while true
+    do
+    read -p "使用 Google 雲端硬碟備份你的資料庫嗎? [y/n]" ANSER
+    case $ANSER in
+        y|Y)
+        use_grive="Y"
+        echo "-------------------------------------"
+        echo "你選擇使用 Google 雲端硬碟備份你的資料庫 !"
+        echo "-------------------------------------"
+        break
+        ;;
+        n|N)
+        use_grive="N"
+        break
+        ;;
+        *)
+        echo "請輸入 Y 或 N"
+        echo ""
+    esac
+    done
+    echo ""
+    echo ""
+
+    echo ""
     echo ""
     echo "按下任一按鍵開始安裝...或是按下 Ctrl+C 取消安裝"
     char=`get_char`
@@ -188,11 +228,24 @@ function pre_installation_settings(){
       echo "參考網站說明操作 https://github.com/xichiou/lamp-xoops"
 
       cd /root/DB_Backup
-      /usr/bin/grive -a -s $IP
+
+      while true
+      do
+        /usr/bin/grive -a -s $IP
+        if [ $? = 0 ]
+        then
+         echo "Google 雲端硬碟認證成功!"
+         sleep 5
+         break
+        fi
+        echo ""
+        echo "認證失敗，請重新認證，或是或是按下 Ctrl+C 取消安裝"
+      done
+
       cd -
-      echo ""
-      echo "如果看到上面有 sync \"./$IP\" 的訊息，表示備份到 Google雲端硬碟 的設定是成功的 !!"
-      sleep 5
+      #echo ""
+      #echo "如果看到上面有 sync \"./$IP\" 的訊息，表示備份到 Google雲端硬碟 的設定是成功的 !!"
+      #sleep 5
     fi
 
     if ! grep 'backup_db.sh' /etc/crontab; then
