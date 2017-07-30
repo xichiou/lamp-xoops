@@ -239,7 +239,7 @@ function pre_installation_settings(){
          break
         fi
         echo ""
-        echo "認證失敗，請重新認證，或是或是按下 Ctrl+C 取消安裝"
+        echo "認證失敗，請重新認證，或是按下 Ctrl+C 取消安裝"
       done
 
       cd -
