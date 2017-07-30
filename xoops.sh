@@ -116,6 +116,8 @@ if [ $SITE_root_type -eq 1 ]; then
 	cd /var/www/html
 	mv xoops_* /var/www
 
+	/usr/bin/ln -s /var/www/html/uploads /root/DB_Backup/${IP}/html
+
 	echo ""
 	echo $MSG_SETUP_XOOPS_OK
 	echo ""
@@ -143,6 +145,8 @@ if [ $SITE_root_type -eq 2 ]; then
 
 	cd /var/www/html/${SITE_root}
 	mv xoops_* /var/www/${SITE_root}
+
+	/usr/bin/ln -s /var/www/html/uploads /root/DB_Backup/${IP}/html/${SITE_root}_uploads
 
 	echo ""
 	echo $MSG_SETUP_XOOPS_OK
