@@ -209,7 +209,8 @@ function pre_installation_settings(){
 
     yum -y install unzip wget
     yum -y install epel-release
-    wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    #wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    wget --no-check-certificate https://rpms.remirepo.net/enterprise/remi-release-7.rpm
     rpm -Uvh remi-release-7*.rpm
 
     if [ $use_grive = "Y" ]
@@ -318,7 +319,6 @@ function install_php(){
     echo "開始安裝 PHP..."
 
     if [ $PHP_version -eq 1 ]; then
-     remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i '/php56]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
     fi
