@@ -47,6 +47,24 @@ function install_lamp(){
     echo $MSG_SAVE_MYSQL_PASSWORD
     echo $dbrootpwd >> /root/mysql_password.txt
     echo ""
+    echo "=========="
+    echo "Apache 版本"
+    echo "=========="
+    httpd -v
+    echo ""
+
+    echo "=========="
+    echo "MySQL  版本"
+    echo "=========="
+    mysql -V
+    echo ""
+
+    echo "=========="
+    echo "PHP    版本"
+    echo "=========="
+    php -v
+    echo ""
+    echo ""
 
 }
 
