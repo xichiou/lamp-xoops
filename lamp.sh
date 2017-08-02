@@ -47,24 +47,6 @@ function install_lamp(){
     echo $MSG_SAVE_MYSQL_PASSWORD
     echo $dbrootpwd >> /root/mysql_password.txt
     echo ""
-    echo "=========="
-    echo "Apache 版本"
-    echo "=========="
-    httpd -v
-    echo ""
-
-    echo "=========="
-    echo "MySQL  版本"
-    echo "=========="
-    mysql -V
-    echo ""
-
-    echo "=========="
-    echo "PHP    版本"
-    echo "=========="
-    php -v
-    echo ""
-    echo ""
 
 }
 
@@ -372,5 +354,67 @@ function install_phpmyadmin(){
     systemctl restart httpd
 }
 
+function show_version(){
+    HAVE_ERROR=0
+    echo ""
+    echo "=========="
+    echo "Apache 版本"
+    echo "=========="
+    httpd -v
+    if [ $? -ne 0 ];then
+      echo "Apache 安裝失敗 !"
+      let HAVE_ERROR+=1
+    fi
+    echo ""
+
+    echo "=========="
+    echo "MySQL  版本"
+    echo "=========="
+    mysql -V
+    if [ $? -ne 0 ];then
+      echo "MySQL 安裝失敗 !"
+      let HAVE_ERROR+=2
+    fi
+    echo ""
+
+    echo "=========="
+    echo "PHP    版本"
+    echo "=========="
+    php -v
+    if [ $? -ne 0 ];then
+      echo "PHP 安裝失敗 !"
+      let HAVE_ERROR+=4
+    fi
+    echo ""
+    echo ""
+
+    return $HAVE_ERROR
+}
+
 
 install_lamp
+
+show_version
+if [ $? -eq 0 ];then
+  while true
+  do
+  read -p "你要繼續安裝 XOOPS? [y/n]" ANSER
+  case $ANSER in
+      y|Y)
+      echo ""
+      echo "開始安裝XOOPS"
+      ./xoops.sh
+      break
+      ;;
+      n|N)
+      echo ""
+      echo "你選擇自行輸入指令 ./xoops.sh 進行安裝XOOPS"
+      break
+      ;;
+      *)
+      echo "請輸入 Y 或 N"
+      echo ""
+  esac
+  done
+fi
+
