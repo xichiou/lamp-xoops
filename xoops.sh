@@ -18,7 +18,8 @@ cur_dir=`pwd`
 
 # Get public IP
 function getIP(){
-    IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[1-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
+    #IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[1-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
+    IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^10\.|^127\.|^255\." | head -n 1`
     if [[ "$IP" = "" ]]; then
         IP=`curl -s -4 icanhazip.com`
     fi
@@ -26,13 +27,13 @@ function getIP(){
 
 getIP
 
-rm -rf XoopsCore25-2.5.8
+rm -rf XoopsCore25-2.5.9
 rm -rf tadtools-master
 rm -rf tad_adm-master
 
 
 if ! [ -f xoops.zip ];then
-	wget 'http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=108&cat_sn=16&name=xoopscore25-2.5.8_tw_20160529.zip' -O xoops.zip
+	wget 'https://campus-xoops.tn.edu.tw/modules/tad_uploader/index.php?op=dlfile&cfsn=145&cat_sn=16&name=xoopscore25-2.5.9_tw_20170803.zip' -O xoops.zip
 fi
 unzip -q xoops.zip
 
@@ -53,7 +54,7 @@ chown -R apache.apache tad_adm-master
 #chown -R apache.apache tad_themes-master
 
 
-cd XoopsCore25-2.5.8
+cd XoopsCore25-2.5.9
 chown -R apache.apache htdocs
 
 # Choose XOOPS site location type
