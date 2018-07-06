@@ -32,17 +32,21 @@ rm -rf tadtools-master
 rm -rf tad_adm-master
 
 
+echo "下載 XOOPS 2.5.9 安裝程式並解開..."
 if ! [ -f xoops.zip ];then
 	wget 'https://campus-xoops.tn.edu.tw/modules/tad_uploader/index.php?op=dlfile&cfsn=145&cat_sn=16&name=xoopscore25-2.5.9_tw_20170803.zip' -O xoops.zip
 fi
 unzip -q xoops.zip
+chown -R apache.apache XoopsCore25-2.5.9
 
+echo "下載模組並解開： tadtools 工具包..."
 if ! [ -f tadtools.zip ];then
 	wget --no-check-certificate https://github.com/tad0616/tadtools/archive/master.zip -O tadtools.zip
 fi
 unzip -q tadtools.zip
 chown -R apache.apache tadtools-master
 
+echo "下載模組並解開： tad_adm 站長工具箱..."
 if ! [ -f tad_adm.zip ];then
 	wget --no-check-certificate https://github.com/tad0616/tad_adm/archive/master.zip -O tad_adm.zip
 fi
@@ -53,14 +57,18 @@ chown -R apache.apache tad_adm-master
 #unzip -q tad_themes.zip
 #chown -R apache.apache tad_themes-master
 
-
 cd XoopsCore25-2.5.9
-chown -R apache.apache htdocs
 
 # Choose XOOPS site location type
 while true
 do
-	echo $MSG_CHOOSE_TYPE
+	echo ""
+	echo ""
+	echo -e $MSG_CHOOSE_TYPE
+	echo -e $MSG_CHOOSE_TYPE_1
+	echo -e $MSG_CHOOSE_TYPE_2
+	echo ""
+	echo "請選擇："
 	echo -e "\t\e[32m1\e[0m. http://${IP}/"
 	echo -e "\t\e[32m2\e[0m. http://${IP}/XOOPS/"
 	read -p "$MSG_INPUT_1" SITE_root_type
@@ -107,17 +115,20 @@ fi
 
 
 if [ $SITE_root_type -eq 1 ]; then
-	mv /var/www/html /var/www/html_org
+	TTIME=`date "+%Y%m%d_%H%M%S"`
+	mv /var/www/html /var/www/html_${TTIME}_move
 	mv htdocs /var/www/html
+	mv xoops_* /var/www
+
 
 	cd ..
 	mv tadtools-master /var/www/html/modules/tadtools
 	mv tad_adm-master /var/www/html/modules/tad_adm
 
-	cd /var/www/html
-	mv xoops_* /var/www
-
-	/usr/bin/ln -s /var/www/html/uploads /root/DB_Backup/${IP}/html
+  if [ -d "/root/DB_Backup/${IP}" ]; then
+    echo "Directory /root/DB_Backup/${IP} exists."
+		/usr/bin/ln -s /var/www/html/uploads /root/DB_Backup/${IP}/html
+  fi
 
 	echo ""
 	echo $MSG_SETUP_XOOPS_OK
@@ -139,15 +150,16 @@ if [ $SITE_root_type -eq 2 ]; then
 
 	mv htdocs /var/www/html/${SITE_root}
 	mkdir /var/www/${SITE_root}
+	mv xoops_* /var/www/${SITE_root}
 
 	cd ..
 	mv tadtools-master /var/www/html/${SITE_root}/modules/tadtools
 	mv tad_adm-master /var/www/html/${SITE_root}/modules/tad_adm
 
-	cd /var/www/html/${SITE_root}
-	mv xoops_* /var/www/${SITE_root}
-
-	/usr/bin/ln -s /var/www/html/uploads /root/DB_Backup/${IP}/html/${SITE_root}_uploads
+	if [ -d "/root/DB_Backup/${IP}" ]; then
+		echo "Directory /root/DB_Backup/${IP} exists."
+		/usr/bin/ln -s /var/www/html/${SITE_root}/uploads /root/DB_Backup/${IP}/html/${SITE_root}_uploads
+  fi
 
 	echo ""
 	echo $MSG_SETUP_XOOPS_OK
@@ -156,7 +168,6 @@ if [ $SITE_root_type -eq 2 ]; then
 	echo $MSG_STEP_4_14
 	echo -e "xoops_data ${MSG_DIR}:\e[32m/var/www/${SITE_root}/xoops_data\e[0m"
 	echo -e "xoops_lib  ${MSG_DIR}:\e[32m/var/www/${SITE_root}/xoops_lib\e[0m"
-	echo ""
 	echo ""
 	echo ""
 fi
