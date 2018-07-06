@@ -1,0 +1,18 @@
+[all_for_root]
+        valid users = os_admin
+        browseable = yes
+        read only = No
+        inherit acls = No
+        path = /
+        force user = root
+        hide dot files = No
+
+[var_www_for_apache]
+        valid users = os_admin
+        browseable = yes
+        read only = No
+        inherit acls = No
+        path = /var/www
+        force user = apache
+        hide dot files = No
+
