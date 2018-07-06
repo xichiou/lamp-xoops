@@ -1,5 +1,7 @@
 MSG_AUTHOR="邱顯錫"
 MSG_CHOOSE_TYPE="請選擇 XOOPS 網址型態:"
+MSG_CHOOSE_TYPE_1="第 1 種型態是一台伺服器只裝一個網站"
+MSG_CHOOSE_TYPE_2="第 2 種型態是一台伺服器幾個安裝網站，例如以下這兩個網站都是在同一台伺服器上 http://163.23.73.111/sport ， http://163.23.73.111/myhome"
 MSG_SENDMAIL_TYPE="你的 XOOPS 要使用何者寄信:"
 MSG_SENDMAIL="Linux 內部寄信程式sendmail"
 MSG_INPUT_1="請輸入數字:(內定值 1) "

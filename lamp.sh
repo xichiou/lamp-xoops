@@ -18,7 +18,8 @@ cur_dir=`pwd`
 
 # Get public IP
 function getIP(){
-    IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[1-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
+    #IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[1-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\." | head -n 1`
+    IP=`ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | egrep -v "^10\.|^127\.|^255\." | head -n 1`
     if [[ "$IP" = "" ]]; then
         IP=`curl -s -4 icanhazip.com`
     fi
@@ -40,13 +41,6 @@ function install_lamp(){
     install_mariadb
     install_php
     install_phpmyadmin
-    clear
-    echo ""
-    echo $MSG_LAMP_OK
-    echo $MSG_MYSQL_PASSWORD $dbrootpwd
-    echo $MSG_SAVE_MYSQL_PASSWORD
-    echo $dbrootpwd >> /root/mysql_password.txt
-    echo ""
 
 }
 
@@ -98,7 +92,7 @@ function pre_installation_settings(){
 
     # Set MySQL root password
     echo "請輸入 MySQL or MariaDB 管理員 root 的密碼:"
-    read -p "(直接按下ENTER採用內定密碼: db9999):" dbrootpwd
+    read -p "(直接按下 ENTER 採用預設密碼: db9999):" dbrootpwd
     if [ -z $dbrootpwd ]; then
         dbrootpwd="db9999"
     fi
@@ -114,8 +108,10 @@ function pre_installation_settings(){
     echo "請選擇 PHP 版本:"
     echo -e "\t\033[32m1\033[0m. 安裝 PHP-5.6"
     echo -e "\t\033[32m2\033[0m. 安裝 PHP-7.0"
-    read -p "請輸入數字:(直接按下ENTER採用內定值 2) " PHP_version
-    [ -z "$PHP_version" ] && PHP_version=2
+    echo -e "\t\033[32m3\033[0m. 安裝 PHP-7.1"
+    echo -e "\t\033[32m4\033[0m. 安裝 PHP-7.2"
+    read -p "請輸入數字:(或按下 ENTER 直接選擇 3) " PHP_version
+    [ -z "$PHP_version" ] && PHP_version=3
     case $PHP_version in
         1)
         #echo ""
@@ -133,8 +129,24 @@ function pre_installation_settings(){
         #echo ""
         break
         ;;
+        3)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 PHP-7.1"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        4)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 PHP-7.2"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
         *)
-        echo $MSG_MUST_NUM "1,2"
+        echo $MSG_MUST_NUM "1,2,3,4"
     esac
     done
 
@@ -176,6 +188,30 @@ function pre_installation_settings(){
     echo ""
 
 
+    # Install Samba ?
+    while true
+    do
+    read -p "使用網路芳鄰嗎? [y/n]" ANSER
+    case $ANSER in
+        y|Y)
+        use_samba="Y"
+        echo "-------------------------------------"
+        echo "你選擇啟用網路芳鄰!                     "
+        echo "-------------------------------------"
+        break
+        ;;
+        n|N)
+        use_samba="N"
+        break
+        ;;
+        *)
+        echo "請輸入 Y 或 N"
+        echo ""
+    esac
+    done
+    echo ""
+    echo ""
+
 
     # Google Drive ?
     while true
@@ -216,7 +252,7 @@ function pre_installation_settings(){
     if [ $use_grive = "Y" ]
     then
       yum -y install grive2
-      cls
+      clear
       echo ""
       echo ""
       echo "設定資料庫備份執行檔 backup_db.sh"
@@ -262,10 +298,10 @@ function pre_installation_settings(){
     source /etc/profile
 
     yum -y install ntp
-    ntpdate -d tick.stdtime.gov.tw
+    ntpdate -d time.stdtime.gov.tw
 
     if ! grep 'ntpdate' /etc/crontab; then
-        echo '0 * * * *  root /usr/sbin/ntpdate watch.stdtime.gov.tw > /dev/null 2>&1' >>/etc/crontab
+        echo '0 * * * *  root /usr/sbin/ntpdate time.stdtime.gov.tw > /dev/null 2>&1' >>/etc/crontab
     fi
 
     if ! grep 'yum' /etc/crontab; then
@@ -283,6 +319,7 @@ function install_apache(){
     sed -i 's/DirectoryIndex index.html$/DirectoryIndex index.html index.htm/g' /etc/httpd/conf/httpd.conf
     systemctl enable httpd
     systemctl start httpd
+    chown -R apache.apache /var/www
     echo "Apache 安裝完畢"
 }
 
@@ -320,15 +357,33 @@ function install_php(){
 
     if [ $PHP_version -eq 1 ]; then
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i '/php56]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
     fi
 
     if [ $PHP_version -eq 2 ]; then
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
         sed -i '/php70]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php70.repo
     fi
 
-    yum -y install php php-gd php-mysql php-mcrypt
+    if [ $PHP_version -eq 3 ]; then
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i '/php71]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php71.repo
+    fi
+
+    if [ $PHP_version -eq 4 ]; then
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i '/php72]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php72.repo
+    fi
+
+    yum -y install php php-gd php-mysql php-mcrypt php-intl
 
     sed -i 's/^.*date\.timezone.*=.*/date\.timezone = "Asia\/Taipei"/g' /etc/php.ini
     sed -i 's/^.*display_errors.*=.*/display_errors = On/g' /etc/php.ini
@@ -344,6 +399,7 @@ function install_php(){
 
     echo "PHP 安裝完畢!"
 }
+
 # Install phpmyadmin.
 function install_phpmyadmin(){
     yum -y install phpMyAdmin
@@ -354,8 +410,47 @@ function install_phpmyadmin(){
     systemctl restart httpd
 }
 
+# Install Samba
+function install_samba(){
+    yum -y install samba
+    OS_ADMIN=`cat /etc/passwd |  awk '{FS=":"} $3 == 1000 {print $1}'`
+    if [[ -z "$OS_ADMIN" ]]
+    then
+      OS_ADMIN="root"
+    fi
+    echo ""
+    echo ""
+    if ! grep 'var_www' /etc/samba/smb.conf; then
+      sed -i "s/os_admin/$OS_ADMIN/g" include/smb.conf.add
+      cat include/smb.conf.add >> /etc/samba/smb.conf
+    fi
+    clear
+    echo "您將使用 $OS_ADMIN 這個帳號從網路芳鄰進入伺服器"
+    echo "請設定 $OS_ADMIN 這個帳號要使用的新密碼，總共要輸入二次做確認"
+    smbpasswd -a $OS_ADMIN
+
+    systemctl enable smb
+    systemctl start smb
+
+    echo ""
+
+    echo "Samba 安裝完畢"
+    echo -e "請在檔案總管的網址列執行  \033[32m\\\\\\\\$IP\033[0m"
+    echo "你會看到三個目錄"
+    echo -e "\t1. \033[32mall_for_root\033[0m 這個目錄可以看到伺服器上全部的檔案，"
+    echo -e "\t   並且以 root 的身分在上面讀寫"
+    echo -e "\t2. \033[32mvar_www_for_apache\033[0m 這個目錄可以看到網頁空間 /var/www 上的檔案，"
+    echo -e "\t   並且以 apache 的身分在上面讀寫"
+    echo -e "\t3. \033[32m$OS_ADMIN\033[0m 這個目錄是 $OS_ADMIN 的家目錄"
+
+}
+
+
+
 function show_version(){
     HAVE_ERROR=0
+    echo ""
+    echo "以下是已經安裝的軟體版本"
     echo ""
     echo "=========="
     echo "Apache 版本"
@@ -394,6 +489,18 @@ function show_version(){
 
 install_lamp
 
+if [ $use_samba = "Y" ]
+then
+    install_samba
+fi
+
+echo ""
+echo $MSG_LAMP_OK
+echo $MSG_MYSQL_PASSWORD $dbrootpwd
+echo $MSG_SAVE_MYSQL_PASSWORD
+echo $dbrootpwd >> /root/mysql_password.txt
+echo ""
+
 show_version
 if [ $? -eq 0 ];then
   while true
@@ -408,7 +515,7 @@ if [ $? -eq 0 ];then
       ;;
       n|N)
       echo ""
-      echo "你選擇自行輸入指令 ./xoops.sh 進行安裝XOOPS"
+      echo "稍後你可以輸入指令 ./xoops.sh 進行安裝 XOOPS"
       break
       ;;
       *)
