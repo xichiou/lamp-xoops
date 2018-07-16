@@ -63,6 +63,7 @@ fi
 # Disable selinux
 function disable_root_ssh(){
     sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+    systemctl reload sshd
 }
 
 # Disable IPV6
