@@ -12,11 +12,13 @@
 ## 操作步驟：
 ### 1. 下載自動化腳本：使用 putty 軟體遠端登入伺服器，切換成 root 最高權限，複製以下指令貼到 putty 軟體內
 
+    cd /root
     yum install -y unzip wget
     wget --no-check-certificate https://github.com/xichiou/lamp-xoops/archive/master.zip -O lamp-xoops.zip
     unzip -o lamp-xoops.zip
     cd lamp-xoops-master/
-    chmod +x *.sh;
+    chmod +x *.sh
+    clear;
 
 ### 2. 安裝 LAMP 網頁伺服器
 
@@ -26,7 +28,7 @@
 
     ./xoops.sh
 
-### 註：步驟 2 安裝 LAMP 網頁伺服器過程中，讓 Grive 可以存取 Google Drive 同步資料庫到雲端，你需要開啟 Google 帳號認證
+### 註：步驟 2 安裝 LAMP 網頁伺服器過程中，為了可以同步資料庫到 Google 雲端，你需要開啟 Google 帳號做認證
 
 ![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
 
