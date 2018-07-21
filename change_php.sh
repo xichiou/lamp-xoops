@@ -134,7 +134,7 @@ function install_php(){
 
 
     yum -y remove php php-gd php-mysql php-mcrypt php-intl  php-common
-    yum -y install php php-gd php-mysql php-mcrypt php-intl
+    yum -y install php php-gd php-mysql php-mcrypt php-intl phpMyAdmin
 
     sed -i 's/^.*date\.timezone.*=.*/date\.timezone = "Asia\/Taipei"/g' /etc/php.ini
     sed -i 's/^.*display_errors.*=.*/display_errors = On/g' /etc/php.ini
@@ -146,7 +146,7 @@ function install_php(){
     sed -i 's/^.*post_max_size.*=.*/post_max_size = 220M/g' /etc/php.ini
     sed -i 's/^.*upload_max_filesize.*=.*/upload_max_filesize = 200M/g' /etc/php.ini
 
-    systemctl reload httpd
+    systemctl restart httpd
 
     echo ""
     echo ""
