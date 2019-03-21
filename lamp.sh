@@ -111,8 +111,8 @@ function pre_installation_settings(){
     echo -e "\t\033[32m2\033[0m. 安裝 PHP-7.0"
     echo -e "\t\033[32m3\033[0m. 安裝 PHP-7.1"
     echo -e "\t\033[32m4\033[0m. 安裝 PHP-7.2"
-    read -p "請輸入數字:(或按下 ENTER 直接選擇 2) " PHP_version
-    [ -z "$PHP_version" ] && PHP_version=2
+    read -p "請輸入數字:(或按下 ENTER 直接選擇 4) " PHP_version
+    [ -z "$PHP_version" ] && PHP_version=4
     case $PHP_version in
         1)
         #echo ""
