@@ -215,7 +215,7 @@ function pre_installation_settings(){
 
 
     # Google Drive ?
-    while true
+    while false
     do
     read -p "使用 Google 雲端硬碟備份你的資料庫嗎? [y/n]" ANSER
     case $ANSER in
@@ -236,6 +236,8 @@ function pre_installation_settings(){
     esac
     done
     echo ""
+    echo "最近無法使用 Google Drive 備份，請暫時自行尋求其他的備份方案"
+    use_grive="N"
     echo ""
 
     echo ""
