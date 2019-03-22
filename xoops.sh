@@ -34,7 +34,7 @@ rm -rf tad_adm-master
 
 echo "下載 XOOPS 2.5.9 安裝程式並解開..."
 if ! [ -f xoops.zip ];then
-	wget 'https://campus-xoops.tn.edu.tw/modules/tad_uploader/index.php?op=dlfile&cfsn=145&cat_sn=16&name=xoopscore25-2.5.9_tw_20170803.zip' -O xoops.zip
+	wget 'http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=145&cat_sn=16&name=xoopscore25-2.5.9_tw_20170803.zip' -O xoops.zip
 fi
 unzip -q xoops.zip
 chown -R apache.apache XoopsCore25-2.5.9
