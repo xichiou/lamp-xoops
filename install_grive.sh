@@ -112,7 +112,7 @@ function install_grive(){
 
       while true
       do
-        /usr/bin/grive -a -s $IP
+        /usr/bin/grive -V -a -s $IP
         if [ $? = 0 ]
         then
          echo "Google 雲端硬碟認證成功!"
