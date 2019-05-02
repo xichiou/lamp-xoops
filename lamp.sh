@@ -215,7 +215,7 @@ function pre_installation_settings(){
 
 
     # Google Drive ?
-    while false
+    while true
     do
     read -p "使用 Google 雲端硬碟備份你的資料庫嗎? [y/n]" ANSER
     case $ANSER in
@@ -235,10 +235,6 @@ function pre_installation_settings(){
         echo ""
     esac
     done
-    echo ""
-    echo "最近無法使用 Google Drive 備份，請暫時自行尋求其他的備份方案"
-    use_grive="N"
-    echo ""
 
     echo ""
     echo ""
@@ -261,7 +257,7 @@ function pre_installation_settings(){
       echo "設定資料庫備份執行檔 backup_db.sh"
       sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh
       sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
-      echo "資料庫備份在 /root/DB_Backup/$IP/MySQL"
+      echo "資料備份在 /root/DB_Backup/$IP/MySQL"
       mkdir "/root/DB_Backup/$IP/MySQL" -p
       mkdir "/root/DB_Backup/$IP/html" -p
       echo "準備認證 Google雲端硬碟，請"
@@ -271,7 +267,7 @@ function pre_installation_settings(){
 
       while true
       do
-        /usr/bin/grive -a -s $IP
+        /usr/bin/grive -V -a -s $IP
         if [ $? = 0 ]
         then
          echo "Google 雲端硬碟認證成功!"
