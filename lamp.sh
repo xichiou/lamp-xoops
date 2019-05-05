@@ -255,7 +255,7 @@ function pre_installation_settings(){
       echo ""
       echo ""
       echo "設定資料庫備份執行檔 backup_db.sh"
-      sed -i "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh
+      sed "s/\/root\/DB_Backup/\/root\/DB_Backup\/$IP\/MySQL/g" include/backup_db.sh_>include/backup_db.sh
       sed -i "s/#\/usr\/bin\/grive/\/usr\/bin\/grive -s $IP/g" include/backup_db.sh
       echo "資料備份在 /root/DB_Backup/$IP/MySQL"
       mkdir "/root/DB_Backup/$IP/MySQL" -p
