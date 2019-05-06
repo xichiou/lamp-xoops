@@ -28,9 +28,10 @@ function getIP(){
 getIP
 
 rm -rf XoopsCore25-2.5.9
-rm -rf tadtools-master
-rm -rf tad_adm-master
-
+rm -rf tadtools
+rm -rf tad_adm
+rm tadtools.zip
+rm tad_adm.zip
 
 echo "下載 XOOPS 2.5.9 安裝程式並解開..."
 if ! [ -f xoops.zip ];then
@@ -52,17 +53,17 @@ chown -R apache.apache XoopsCore25-2.5.9
 
 echo "下載模組並解開： tadtools 工具包..."
 if ! [ -f tadtools.zip ];then
-	wget --no-check-certificate https://github.com/tad0616/tadtools/archive/master.zip -O tadtools.zip
+	wget "http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1938#tadtools_3.25_20190324.zip" -O tadtools.zip
 fi
 unzip -q tadtools.zip
-chown -R apache.apache tadtools-master
+chown -R apache.apache tadtools
 
 echo "下載模組並解開： tad_adm 站長工具箱..."
 if ! [ -f tad_adm.zip ];then
-	wget --no-check-certificate https://github.com/tad0616/tad_adm/archive/master.zip -O tad_adm.zip
+	wget "http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1880#tad_adm_2.8_20190101.zip" -O tad_adm.zip
 fi
 unzip -q tad_adm.zip
-chown -R apache.apache tad_adm-master
+chown -R apache.apache tad_adm
 
 #wget --no-check-certificate https://github.com/tad0616/tad_themes/archive/master.zip -O tad_themes.zip
 #unzip -q tad_themes.zip
@@ -133,8 +134,8 @@ if [ $SITE_root_type -eq 1 ]; then
 
 
 	cd ..
-	mv tadtools-master /var/www/html/modules/tadtools
-	mv tad_adm-master /var/www/html/modules/tad_adm
+	mv tadtools /var/www/html/modules/tadtools
+	mv tad_adm /var/www/html/modules/tad_adm
 
   if [ -d "/root/DB_Backup/${IP}" ]; then
     echo "Directory /root/DB_Backup/${IP} exists."
@@ -164,8 +165,8 @@ if [ $SITE_root_type -eq 2 ]; then
 	mv xoops_* /var/www/${SITE_root}
 
 	cd ..
-	mv tadtools-master /var/www/html/${SITE_root}/modules/tadtools
-	mv tad_adm-master /var/www/html/${SITE_root}/modules/tad_adm
+	mv tadtools /var/www/html/${SITE_root}/modules/tadtools
+	mv tad_adm /var/www/html/${SITE_root}/modules/tad_adm
 
 	if [ -d "/root/DB_Backup/${IP}" ]; then
 		echo "Directory /root/DB_Backup/${IP} exists."
