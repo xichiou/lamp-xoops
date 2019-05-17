@@ -43,9 +43,10 @@ function pre_installation_settings(){
     echo -e "\t\033[32m2\033[0m. 安裝 PHP-7.0"
     echo -e "\t\033[32m3\033[0m. 安裝 PHP-7.1"
     echo -e "\t\033[32m4\033[0m. 安裝 PHP-7.2"
-    echo -e "\t\033[32m5\033[0m. 離開"
-    read -p "請輸入數字:(或按下 ENTER 直接選擇 5 離開) " PHP_version
-    [ -z "$PHP_version" ] && PHP_version=5
+    echo -e "\t\033[32m5\033[0m. 安裝 PHP-7.3"
+    echo -e "\t\033[32m6\033[0m. 離開"
+    read -p "請輸入數字:(或按下 ENTER 直接選擇 6 離開) " PHP_version
+    [ -z "$PHP_version" ] && PHP_version=6
     case $PHP_version in
         1)
         #echo ""
@@ -82,6 +83,14 @@ function pre_installation_settings(){
         5)
         #echo ""
         echo "---------------------------"
+        echo "你選擇安裝 PHP-7.3"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        6)
+        #echo ""
+        echo "---------------------------"
         echo "你選擇離開"
         echo "---------------------------"
         exit
@@ -89,7 +98,7 @@ function pre_installation_settings(){
         break
         ;;
         *)
-        echo $MSG_MUST_NUM "1,2,3,4,5"
+        echo $MSG_MUST_NUM "1,2,3,4,5,6"
     esac
     done
 
@@ -108,6 +117,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
         sed -i '/php56]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi.repo
     fi
 
@@ -115,6 +125,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
         sed -i '/php70]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php70.repo
     fi
 
@@ -122,6 +133,7 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
         sed -i '/php71]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php71.repo
     fi
 
@@ -129,7 +141,16 @@ function install_php(){
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
         sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php73.repo
         sed -i '/php72]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php72.repo
+    fi
+
+    if [ $PHP_version -eq 5 ]; then
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php70.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php71.repo
+        sed -i 's/enabled=1/enabled=0/g' /etc/yum.repos.d/remi-php72.repo
+        sed -i '/php73]/,/gpgkey/s/enabled=0/enabled=1/g' /etc/yum.repos.d/remi-php73.repo
     fi
 
 
