@@ -8,6 +8,12 @@ export PATH
 #   Intro:  https://github.com/xichiou/lamp-xoops
 #===============================================================================================
 
+TADTOOLS_VERSION=3.26
+TADTOOLS_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1961#tadtools_3.26_20190509.zip"
+
+TAD_ADM_VERSION=2.81
+TAD_ADM_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1962#tad_adm_2.81_20190509.zip"
+
 clear
 
 #source lang/en.xoops
@@ -30,45 +36,60 @@ getIP
 rm -rf XoopsCore25-2.5.9
 rm -rf tadtools
 rm -rf tad_adm
-rm tadtools.zip
-rm tad_adm.zip
 
 echo "下載 XOOPS 2.5.9 安裝程式並解開..."
-if ! [ -f xoops.zip ];then
-	wget 'http://campus-xoops.tn.edu.tw/modules/tad_uploader/index.php?op=dlfile&cfsn=145&cat_sn=16&name=xoopscore25-2.5.9_tw_20170803.zip' -O xoops.zip
+if ! [ -f xoops-2.5.9.zip ];then
+	wget 'http://campus-xoops.tn.edu.tw/modules/tad_uploader/index.php?op=dlfile&cfsn=145&cat_sn=16&name=xoopscore25-2.5.9_tw_20170803.zip' -O xoops-2.5.9.zip
 	if [ $? -ne 0 ];then
-	  rm -f xoops.zip
+	  rm -f xoops-2.5.9.zip
           echo "主網站下載失敗，改從彰化縣網下載!"
-	  wget 'http://163.23.200.157/site01/XoopsCore25-2.5.9_tw_20170803.zip' -O xoops.zip
+	  wget 'http://163.23.200.157/site01/XoopsCore25-2.5.9_tw_20170803.zip' -O xoops-2.5.9.zip
 	  if [ $? -ne 0 ];then
-	    rm -f xoops.zip
+	    rm -f xoops-2.5.9.zip
 	    echo "彰化縣網下載失敗，安裝中斷，請稍後再安裝看看!"
             exit 2;
-	  fi  
+	  fi
         fi
 
 fi
-unzip -q xoops.zip
+unzip -q xoops-2.5.9.zip
 chown -R apache.apache XoopsCore25-2.5.9
 
 echo "下載模組並解開： tadtools 工具包..."
-if ! [ -f tadtools.zip ];then
-	wget "http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1938#tadtools_3.25_20190324.zip" -O tadtools.zip
+if ! [ -f tadtools_${TADTOOLS_VERSION}.zip ];then
+	wget $TADTOOLS_URL -O tadtools_${TADTOOLS_VERSION}.zip
 fi
-unzip -q tadtools.zip
+unzip -q tadtools_${TADTOOLS_VERSION}.zip
 chown -R apache.apache tadtools
 
 echo "下載模組並解開： tad_adm 站長工具箱..."
-if ! [ -f tad_adm.zip ];then
-	wget "http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1880#tad_adm_2.8_20190101.zip" -O tad_adm.zip
+if ! [ -f tad_adm_${TAD_ADM_VERSION}.zip ];then
+	wget $TAD_ADM_URL -O tad_adm_${TAD_ADM_VERSION}.zip
 fi
-unzip -q tad_adm.zip
+unzip -q tad_adm_${TAD_ADM_VERSION}.zip
 chown -R apache.apache tad_adm
 
 #wget --no-check-certificate https://github.com/tad0616/tad_themes/archive/master.zip -O tad_themes.zip
 #unzip -q tad_themes.zip
 #chown -R apache.apache tad_themes-master
 
+
+echo "下載更新並解開： BootStrap4升級補丁"
+if ! [ -f bs4_upgrade.zip ];then
+	wget 'http://120.115.2.90/modules/tad_modules/xoops.php?op=tufdl&files_sn=1845#bs4_upgrade_20190101.zip' -O bs4_upgrade.zip
+fi
+
+if ! [ -d patch ]; then
+	mkdir patch
+fi
+cd patch
+unzip -q -o ../bs4_upgrade.zip
+chown -R apache.apache .
+cp -rf htdocs/* ../XoopsCore25-2.5.9/htdocs/
+echo echo `date "+%Y-%m-%d %H:%M:%S"`>../XoopsCore25-2.5.9/htdocs/uploads/xoops_sn_6.txt
+chown -R apache.apache ../XoopsCore25-2.5.9/htdocs/
+cd ..
+pwd
 cd XoopsCore25-2.5.9
 
 # Choose XOOPS site location type
