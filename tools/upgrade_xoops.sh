@@ -5,7 +5,7 @@ if [ "$#" -gt 0 ]; then
   SEARCH_PATH="${SEARCH_PATH}/$1"
 fi
 
-echo -e "檢查網站目錄 $SEARCH_PATH ..."
+echo -e "\n檢查網站目錄 $SEARCH_PATH ...\n"
 
 if [ ! -f "$SEARCH_PATH/mainfile.php" ]; then
   echo "此目錄沒有 mainfile.php"
@@ -109,6 +109,20 @@ fi
 
 if [ $XOOPS_VERSION_CURRENT -lt 9 ]; then
   echo "進行更新[核心]XOOPS  ==> 2.5.9"
+  wget "http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=146&cat_sn=16&name=xoopscore25-2.5.9_tw_for_upgrade_20170803.zip" -O xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
+  unzip xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
+  chown -R apache.apache XoopsCore25-2.5.9_for_upgrade
+  cd XoopsCore25-2.5.9_for_upgrade
+  rm -rf $XOOPS_ROOT_PATH/modules/system
+  cp -rf htdocs/* $XOOPS_ROOT_PATH
+  cp -rf xoops_data/* $XOOPS_VAR_PATH
+  cp -rf xoops_lib/* $XOOPS_PATH
+  chmod 777 $XOOPS_ROOT_PATH/mainfile.php
+  chmod 777 $XOOPS_VAR_PATH/data/secure.php
+  echo -e "\n請開啟以下連結進行更新\n ${XOOPS_URL}/upgrade\n\n更新完畢後請自行執行以下指令\n"
+  echo "chmod 444 $XOOPS_ROOT_PATH/mainfile.php"
+  echo "chmod 444 $XOOPS_VAR_PATH/data/secure.php"
+  echo "rm -rf $XOOPS_ROOT_PATH/upgrade"
 fi
 
-echo DONE
+echo -e "\n更新完畢\n"
