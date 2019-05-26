@@ -40,7 +40,7 @@ function install_grive(){
     echo "#############################################################"
     echo "# Grive 自動安裝腳本 for CentOS                                #"
     echo "# 簡介: https://github.com/xichiou/lamp-xoops                #"
-    echo "# 作者: 邱顯錫 <hsienhsi@gmail.com>                           #"
+    echo "# 作者: 邱顯錫 <xichiou@gmail.com>                            #"
     echo "#############################################################"
     echo ""
 
@@ -96,7 +96,7 @@ function install_grive(){
     if [ $use_grive = "Y" ]
     then
       yum -y install grive2
-      clear 
+      clear
       echo ""
       echo ""
       echo "設定資料庫備份執行檔 backup_db.sh"

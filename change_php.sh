@@ -30,7 +30,7 @@ function pre_installation_settings(){
     echo "#############################################################"
     echo "# LAMP 自動安裝腳本 for CentOS                                #"
     echo "# 簡介: https://github.com/xichiou/lamp-xoops                #"
-    echo "# 作者: 邱顯錫 <hsienhsi@gmail.com>                           #"
+    echo "# 作者: 邱顯錫 <xichiou@gmail.com>                            #"
     echo "#############################################################"
     echo ""
 

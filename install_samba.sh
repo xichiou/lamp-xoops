@@ -46,7 +46,7 @@ function install_samba(){
     echo "#############################################################"
     echo "# Grive 自動安裝腳本 for CentOS                                #"
     echo "# 簡介: https://github.com/xichiou/lamp-xoops                #"
-    echo "# 作者: 邱顯錫 <hsienhsi@gmail.com>                           #"
+    echo "# 作者: 邱顯錫 <xichiou@gmail.com>                            #"
     echo "#############################################################"
     echo ""
 

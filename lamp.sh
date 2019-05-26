@@ -81,7 +81,7 @@ function pre_installation_settings(){
     echo "#############################################################"
     echo "# LAMP 自動安裝腳本 for CentOS                                #"
     echo "# 簡介: https://github.com/xichiou/lamp-xoops                #"
-    echo "# 作者: 邱顯錫 <hsienhsi@gmail.com>                           #"
+    echo "# 作者: 邱顯錫 <xichiou@gmail.com>                            #"
     echo "#############################################################"
     echo ""
 
@@ -92,10 +92,11 @@ function pre_installation_settings(){
     echo ""
 
     # Set MySQL root password
+    MYSQL_PASSWORD_DEFAULT=$(uuidgen|cut -d"-" -f 1)
     echo "請輸入 MySQL or MariaDB 管理員 root 的密碼:"
-    read -p "(直接按下 ENTER 採用預設密碼: db9999):" dbrootpwd
+    read -p "(直接按下 ENTER 採用預設密碼: ${MYSQL_PASSWORD_DEFAULT}):" dbrootpwd
     if [ -z $dbrootpwd ]; then
-        dbrootpwd="db9999"
+        dbrootpwd=$MYSQL_PASSWORD_DEFAULT
     fi
     echo ""
     echo "---------------------------"

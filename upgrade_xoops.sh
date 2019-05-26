@@ -32,7 +32,7 @@ SEARCH_PATH="/var/www/html"
 echo -e "\n\a這個程式腳本幫助您檢查網站運行的版本並且更新："
 echo -e "XOOPS核心==>版本 ${XOOPS_CORE}"
 echo -e "[模組]站長工具箱==>版本 ${TAD_ADM_VERSION}"
-echo -e "[模組][模組]tadtools==>版本 ${TADTOOLS_VERSION}"
+echo -e "[模組]tadtools==>版本 ${TADTOOLS_VERSION}"
 echo ""
 
 if [ $# == 1 ]; then
