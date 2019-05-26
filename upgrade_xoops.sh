@@ -7,6 +7,13 @@ export PATH
 #   Author: 邱顯錫 (Chiou, Hsienhsi)
 #   Intro:  https://github.com/xichiou/lamp-xoops
 #===============================================================================================
+TADTOOLS_VERSION=3.26
+TADTOOLS_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1961#tadtools_3.26_20190509.zip"
+
+TAD_ADM_VERSION=2.81
+TAD_ADM_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1962#tad_adm_2.81_20190509.zip"
+
+XOOPS_CORE=2.5.9
 
 get_char()
 {
@@ -22,13 +29,19 @@ get_char()
 
 SEARCH_PATH="/var/www/html"
 
+echo -e "\n\a這個程式腳本幫助您檢查網站運行的版本並且更新："
+echo -e "XOOPS核心==>版本 ${XOOPS_CORE}"
+echo -e "[模組]站長工具箱==>版本 ${TAD_ADM_VERSION}"
+echo -e "[模組][模組]tadtools==>版本 ${TADTOOLS_VERSION}"
+echo ""
+
 read -p "請輸入網站目錄: /var/www/html/" SUB_DIR
 if [ "$SUB_DIR" != "" ]; then
   SUB_DIR=$(echo $SUB_DIR | sed -e 's/\/$//')
   SEARCH_PATH="$SEARCH_PATH/$SUB_DIR"
 fi
 
-echo -e "\n檢查網站目錄 $SEARCH_PATH ..."
+#echo -e "\n檢查網站目錄 $SEARCH_PATH ..."
 
 if [ ! -f "$SEARCH_PATH/mainfile.php" ]; then
   echo "此目錄沒有 mainfile.php"
@@ -81,16 +94,10 @@ XOOPS_VERSION_CURRENT=$(echo $XOOPS_VERSION_CURRENT|cut -d"." -f 3) #只留下�
 XOOPS_VERSION_CURRENT=$(($XOOPS_VERSION_CURRENT))
 #echo $XOOPS_VERSION_CURRENT
 
-echo "按下任一按鍵開始安裝更新...或是按下 Ctrl+C 取消安裝"
+echo -e "\n按下任一按鍵開始安裝更新...或是按下 Ctrl+C 取消安裝"
 char=`get_char`
 
 ####################### 進行更新 ########################
-TADTOOLS_VERSION=3.26
-TADTOOLS_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1961#tadtools_3.26_20190509.zip"
-
-TAD_ADM_VERSION=2.81
-TAD_ADM_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1962#tad_adm_2.81_20190509.zip"
-
 cd "$XOOPS_ROOT_PATH/modules"
 
 MESSAGE=""
@@ -142,11 +149,11 @@ fi
 
 
 if [ $XOOPS_VERSION_CURRENT -lt 9 ]; then
-  echo "進行更新[核心]XOOPS  ==> 2.5.9"
+  echo "進行更新[核心]XOOPS  ==> XOOPS_CORE"
   wget "http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=146&cat_sn=16&name=xoopscore25-2.5.9_tw_for_upgrade_20170803.zip" -O xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
   if [ -f xoopscore25-2.5.9_tw_for_upgrade_20170803.zip ];then
     rm -rf XoopsCore25-2.5.9_for_upgrade
-    unzip xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
+    unzip -q xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
     chown -R apache.apache XoopsCore25-2.5.9_for_upgrade
     cd XoopsCore25-2.5.9_for_upgrade
     rm -rf $XOOPS_ROOT_PATH/modules/system
@@ -155,7 +162,7 @@ if [ $XOOPS_VERSION_CURRENT -lt 9 ]; then
     cp -rf xoops_lib/* $XOOPS_PATH
     chmod 777 $XOOPS_ROOT_PATH/mainfile.php
     chmod 777 $XOOPS_VAR_PATH/data/secure.php
-    MESSAGE="${MESSAGE}\n請開啟以下連結進行更新\n ${XOOPS_URL}/upgrade\n\n更新完畢後請自行執行以下指令\n\n"
+    MESSAGE="${MESSAGE}\n請使用瀏覽器開啟以下連結進行進行更新[核心]XOOPS\n\e[32m${XOOPS_URL}/upgrade\e[0m\n\n更新完畢後請自行執行以下指令\n\n"
     MESSAGE="${MESSAGE}chmod 444 $XOOPS_ROOT_PATH/mainfile.php\n"
     MESSAGE="${MESSAGE}chmod 444 $XOOPS_VAR_PATH/data/secure.php\n"
     MESSAGE="${MESSAGE}rm -rf $XOOPS_ROOT_PATH/upgrade\n"
@@ -170,4 +177,5 @@ if [ "$MESSAGE" == "" ]; then
 else
   echo -e $MESSAGE
 fi
+
 
