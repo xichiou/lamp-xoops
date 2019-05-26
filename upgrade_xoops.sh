@@ -35,16 +35,20 @@ echo -e "[模組]站長工具箱==>版本 ${TAD_ADM_VERSION}"
 echo -e "[模組][模組]tadtools==>版本 ${TADTOOLS_VERSION}"
 echo ""
 
-read -p "請輸入網站目錄: /var/www/html/" SUB_DIR
-if [ "$SUB_DIR" != "" ]; then
-  SUB_DIR=$(echo $SUB_DIR | sed -e 's/\/$//')
-  SEARCH_PATH="$SEARCH_PATH/$SUB_DIR"
+if [ $# == 1 ]; then
+  SEARCH_PATH=$1
+else
+  read -p "請輸入網站目錄: $SEARCH_PATH/" SUB_DIR
+  if [ "$SUB_DIR" != "" ]; then
+    SUB_DIR=$(echo $SUB_DIR | sed -e 's/\/$//')
+    SEARCH_PATH="$SEARCH_PATH/$SUB_DIR"
+  fi
 fi
 
 #echo -e "\n檢查網站目錄 $SEARCH_PATH ..."
 
 if [ ! -f "$SEARCH_PATH/mainfile.php" ]; then
-  echo "此目錄沒有 mainfile.php"
+  echo "錯誤! $SEARCH_PATH 目錄下沒有 mainfile.php，請確認網站放在哪個目錄後重新執行"
   exit 1001
 fi
 
