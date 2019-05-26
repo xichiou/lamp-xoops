@@ -12,7 +12,7 @@
 
 ## 操作步驟：
 ### 1. 下載自動化腳本：
-##### 使用 Putty 軟體遠端登入伺服器，切換成 root 最高權限，複製以下指令貼到 Putty 視窗內
+#### 使用 Putty 軟體遠端登入伺服器，切換成 root 最高權限，複製以下指令貼到 Putty 視窗內
 
     cd /root
     yum install -y unzip wget
@@ -32,7 +32,7 @@
 
     ./xoops.sh
 
-##### 註：步驟 2 安裝 LAMP 套件成為網頁伺服器，為了可以同步資料庫到 Google 雲端，你需要開啟 Google 帳號做認證
+#### 註：步驟 2 安裝 LAMP 套件成為網頁伺服器，為了可以同步資料庫到 Google 雲端，你需要開啟 Google 帳號做認證
 
 ![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
 
@@ -68,11 +68,11 @@
     ./update.sh
 ---
 ### G. 檢查XOOPS網站運行的版本並且更新
-##### 更新XOOPS核心到2.5.9，[模組]站長工具箱到2.81，[模組]tadtools到3.26和BootStrap4升級補丁，這些是近期最重要的更新
+#### 更新XOOPS核心到2.5.9，[模組]站長工具箱到2.81，[模組]tadtools到3.26和BootStrap4升級補丁，這些是近期最重要的更新
 
     ./upgrade_xoops.sh
 
-##### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
+#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
     ./upgrade_xoops.sh /var/www/html/xoops
 
 ---
@@ -80,11 +80,11 @@
 
     ./show_xoops_var.sh
 
-##### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
+#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
     ./show_xoops_var.sh /var/www/html/xoops
-##### 如果在舊機器上不想要安裝本專案全部的腳本，可以用下列指令代替
+#### 如果在舊機器上不想要安裝本專案全部的腳本，可以用下列指令代替
     curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/show_xoops_var.sh | bash -s --
 
-##### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
+#### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
     curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/show_xoops_var.sh | bash -s -- /var/www/html/xoops
 
