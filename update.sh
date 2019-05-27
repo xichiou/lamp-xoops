@@ -19,7 +19,7 @@ if [ -f lamp-xoops.zip ]; then
   unzip -q -o lamp-xoops.zip
   cd lamp-xoops-master/
   chmod +x *.sh
-  rm lamp_xoops.zip
+  rm lampxoops.zip
   echo -e "\n已經取得最新 lamp_xoops 程式腳本!!\n"
 else
   echo -e "更新失敗"
