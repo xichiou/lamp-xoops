@@ -10,7 +10,7 @@ export PATH
 
 cd /root
 whereis wget|grep bin;
-if [ $? != 0]; then
+if [ $? != 0 ]; then
   yum install -y unzip wget
 fi
 rm lamp-xoops.zip
