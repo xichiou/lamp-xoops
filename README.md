@@ -18,7 +18,7 @@
     yum install -y unzip wget
     wget --no-check-certificate https://github.com/xichiou/lamp-xoops/archive/master.zip -O lamp-xoops.zip
     unzip -o lamp-xoops.zip
-    rm lamp-xoops.zip
+    rm -f lamp-xoops.zip
     cd lamp-xoops-master/
     chmod +x *.sh
     clear;
@@ -32,7 +32,7 @@
 
     ./xoops.sh
 
-#### 註：步驟 2 安裝 LAMP 套件成為網頁伺服器，為了可以同步資料庫到 Google 雲端，你需要開啟 Google 帳號做認證
+#### 註：步驟 2 安裝 LAMP 套件過程中，為了可以同步資料庫到 Google 雲端，你需要開啟 Google 帳號做認證
 
 ![grive -a](https://github.com/xichiou/lamp-xoops/blob/master/images/grive-a.png)
 
