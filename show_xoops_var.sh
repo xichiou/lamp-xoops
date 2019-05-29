@@ -41,7 +41,7 @@ XOOPS_ROOT_PATH=$(cat mainfile.php |grep "define('XOOPS_ROOT_PATH'"|cut -d"," -f
 echo -e "[設定]XOOPS_ROOT_PATH: \e[32m$XOOPS_ROOT_PATH\e[0m"
 if [ $XOOPS_ROOT_PATH != $SEARCH_PATH ]; then
   echo "XOOPS_ROOT_PATH 和實際的網站資料夾不同，可能無法運作!"
-  exit 1002
+  #exit 1002
 fi
 
 
