@@ -29,12 +29,6 @@ function get_var()
   echo $get1
 }
 
-# echo -e "\n\a這個程式腳本幫助您檢查網站運行的版本並且更新："
-# echo -e "XOOPS核心==>版本 ${XOOPS_CORE}"
-# echo -e "[模組]站長工具箱==>版本 ${TAD_ADM_VERSION}"
-# echo -e "[模組][模組]tadtools==>版本 ${TADTOOLS_VERSION}"
-# echo ""
-
 if [ $# == 1 ]; then
   SEARCH_PATH=$1
 else
@@ -57,30 +51,12 @@ echo -e "\n目前網站版本如下:\n====================="
 cd $SEARCH_PATH
 
 XOOPS_ROOT_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_ROOT_PATH)
-echo -e "[設定]XOOPS_ROOT_PATH: \e[32m$XOOPS_ROOT_PATH\e[0m"
-if [ $XOOPS_ROOT_PATH != $SEARCH_PATH ]; then
-  echo "XOOPS_ROOT_PATH 和實際的網站資料夾不同，可能無法運作!"
-  #exit 1002
-fi
-
-
 XOOPS_VAR_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_VAR_PATH)
-echo -e "[設定]XOOPS_VAR_PATH: \e[32m$XOOPS_VAR_PATH\e[0m"
-
 XOOPS_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_PATH)
-echo -e "[設定]XOOPS_PATH: \e[32m$XOOPS_PATH\e[0m"
-
 XOOPS_URL=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_URL)
-echo -e "[設定]XOOPS_URL: \e[32m$XOOPS_URL\e[0m"
-
 TAD_ADM_VERSION_CURRENT=$(get_var modules/tad_adm/xoops_version.php version)
-echo -e "[模組]站長工具箱 版本: \e[32m${TAD_ADM_VERSION_CURRENT}\e[0m"
-
 TADTOOLS_VERSION_CURRNET=$(get_var modules/tadtools/xoops_version.php version)
-echo -e "[模組]tadtools 版本: \e[32m${TADTOOLS_VERSION_CURRNET}\e[0m"
-
 XOOPS_VERSION_CURRENT=$(get_define ${SEARCH_PATH}/include/version.php XOOPS_VERSION)
-echo -e "[核心]XOOPS: \e[32m${XOOPS_VERSION_CURRENT}\e[0m"
 
 if [ -f ${XOOPS_VAR_PATH}/data/secure.php ]; then
   secure_file=${XOOPS_VAR_PATH}/data/secure.php
@@ -89,20 +65,28 @@ else
 fi
 
 XOOPS_DB_USER=$(get_define $secure_file XOOPS_DB_USER)
-echo -e "[設定]XOOPS_DB_USER 資料庫使用者: \e[32m${XOOPS_DB_USER}\e[0m"
-
 XOOPS_DB_PASS=$(get_define $secure_file XOOPS_DB_PASS)
-echo -e "[設定]XOOPS_DB_PASS 資料庫密碼: \e[32m${XOOPS_DB_PASS}\e[0m"
-
 XOOPS_DB_NAME=$(get_define $secure_file XOOPS_DB_NAME)
-echo -e "[設定]XOOPS_DB_NAME 資料庫名稱: \e[32m${XOOPS_DB_NAME}\e[0m"
-
 XOOPS_DB_PREFIX=$(get_define $secure_file XOOPS_DB_PREFIX)
-echo -e "[設定]XOOPS_DB_PREFIX 資料庫前置碼: \e[32m${XOOPS_DB_PREFIX}\e[0m"
-
 XOOPS_DB_CHARSET=$(get_define $secure_file XOOPS_DB_CHARSET)
-echo -e "[設定]XOOPS_DB_CHARSET 資料庫編碼: \e[32m${XOOPS_DB_CHARSET}\e[0m"
-
 XOOPS_DB_TYPE=$(get_define $secure_file XOOPS_DB_TYPE)
+
+echo -e "[設定]XOOPS_VAR_PATH: \e[32m$XOOPS_VAR_PATH\e[0m"
+echo -e "[設定]XOOPS_PATH: \e[32m$XOOPS_PATH\e[0m"
+echo -e "[設定]XOOPS_URL: \e[32m$XOOPS_URL\e[0m"
+echo -e "[模組]站長工具箱 版本: \e[32m${TAD_ADM_VERSION_CURRENT}\e[0m"
+echo -e "[模組]tadtools 版本: \e[32m${TADTOOLS_VERSION_CURRNET}\e[0m"
+echo -e "[核心]XOOPS: \e[32m${XOOPS_VERSION_CURRENT}\e[0m"
+echo -e "[設定]XOOPS_DB_USER 資料庫使用者: \e[32m${XOOPS_DB_USER}\e[0m"
+echo -e "[設定]XOOPS_DB_PASS 資料庫密碼: \e[32m${XOOPS_DB_PASS}\e[0m"
+echo -e "[設定]XOOPS_DB_NAME 資料庫名稱: \e[32m${XOOPS_DB_NAME}\e[0m"
+echo -e "[設定]XOOPS_DB_PREFIX 資料庫前置碼: \e[32m${XOOPS_DB_PREFIX}\e[0m"
+echo -e "[設定]XOOPS_DB_CHARSET 資料庫編碼: \e[32m${XOOPS_DB_CHARSET}\e[0m"
 echo -e "[設定]XOOPS_DB_TYPE 資料庫: \e[32m${XOOPS_DB_TYPE}\e[0m"
+
+echo -e "[設定]XOOPS_ROOT_PATH: \e[32m$XOOPS_ROOT_PATH\e[0m"
+if [ $XOOPS_ROOT_PATH != $SEARCH_PATH ]; then
+  echo "XOOPS_ROOT_PATH 和實際的網站放置的資料夾不同，可能是使用 ln -s 符號連結!"
+  #exit 1002
+fi
 
