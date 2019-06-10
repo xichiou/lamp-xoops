@@ -95,3 +95,15 @@
 #### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
     curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/show_xoops_var.sh | bash -s -- /var/www/html/xoops
 
+---
+### I. 打包您現有的XOOPS網站的程式、資料庫，再傳輸到遠端新伺服器上
+#### 直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
+    curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/dump_xoops.sh | bash -s -- /var/www/html/xoops
+    
+---
+### J. 還原上一步驟的XOOPS網站的程式、資料庫
+#### 指定打包好的檔案的資料夾路徑
+
+    ./restore_xoops.sh 資料夾路徑
+
+
