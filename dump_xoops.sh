@@ -68,7 +68,7 @@ function get_var()
   parse_file=$1
   var_name=$2
 
-  get1=$(cat $1|sed s/\"/\'/g|grep \'$var_name|cut -d"=" -f 2|cut -d"'" -f 2)
+  get1=$(cat $1|sed s/\"/\'/g|grep \'$var_name|cut -d"=" -f 2|cut -d";" -f 1)
   echo $get1
 }
 
@@ -181,7 +181,7 @@ echo XOOPS_DB_NAME=$XOOPS_DB_NAME >>$Dump_Xoops_DIR/xoops_var.def
 echo XOOPS_DB_PREFIX=$XOOPS_DB_PREFIX >>$Dump_Xoops_DIR/xoops_var.def
 echo XOOPS_DB_CHARSET=$XOOPS_DB_CHARSET >>$Dump_Xoops_DIR/xoops_var.def
 echo XOOPS_DB_TYPE=$XOOPS_DB_TYPE >>$Dump_Xoops_DIR/xoops_var.def
-echo XOOPS_VERSION_CURRENT=$XOOPS_VERSION_CURRENT >>$Dump_Xoops_DIR/xoops_var.def
+echo XOOPS_VERSION_CURRENT="$XOOPS_VERSION_CURRENT" >>$Dump_Xoops_DIR/xoops_var.def
 echo TAD_ADM_VERSION_CURRENT=$TAD_ADM_VERSION_CURRENT >>$Dump_Xoops_DIR/xoops_var.def
 echo TADTOOLS_VERSION_CURRNET=$TADTOOLS_VERSION_CURRNET >>$Dump_Xoops_DIR/xoops_var.def
 echo 匯出上列各項資料到 $Dump_Xoops_DIR/xoops_var.def
