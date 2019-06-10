@@ -144,8 +144,11 @@ if [ $# -ge 2 ]; then
   # echo -e "\e[33m開始備份網站各項資料到 $Dump_Xoops_DIR\e[0m"
 fi
 
-get_yes_no "你確定要執行備份工作?" "\e[33m開始備份網站各項資料到 $Dump_Xoops_DIR\e[0m"
-if [ $? -eq 0 ]; then exit 1; fi
+# get_yes_no "你確定要執行備份工作?" "\e[33m開始備份網站各項資料到 $Dump_Xoops_DIR\e[0m"
+# if [ $? -eq 0 ]; then exit 1; fi
+
+echo "按下任一按鍵開始打包...或是按下 Ctrl+C 取消打包"
+char=`get_char`
 
 if ! [ -d $Dump_Xoops_DIR ]; then
   mkdir $Dump_Xoops_DIR -p
