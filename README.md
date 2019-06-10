@@ -24,7 +24,7 @@
     clear;
 
 
-### 2. 安裝 LAMP 套件成為網頁伺服器 (這個步驟只適合還沒安裝Apache+MySQL+PHP，步驟2只能執行一次)
+### 2. 安裝 LAMP 套件成為網頁伺服器 (這個步驟只適合還沒安裝Apache+MySQL+PHP，因此這個步驟最多只能執行一次)
 
     ./lamp.sh
 

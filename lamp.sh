@@ -299,7 +299,7 @@ function pre_installation_settings(){
         chmod +x /root/backup_db.sh
         CRONTAB_H=$(($RANDOM % 6))
         CRONTAB_M=$(($RANDOM % 60))
-        echo "$CRONTAB_H $CRONTAB_M * * * root /root/backup_db.sh > /dev/null 2>&1" >>/etc/crontab
+        echo "$CRONTAB_M $CRONTAB_H * * * root /root/backup_db.sh > /dev/null 2>&1" >>/etc/crontab
     fi
 
 
@@ -318,7 +318,7 @@ function pre_installation_settings(){
     if ! grep 'yum' /etc/crontab; then
         CRONTAB_H=$(($RANDOM % 6))
         CRONTAB_M=$(($RANDOM % 60))
-    	echo "$CRONTAB_H $CRONTAB_M * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1" >>/etc/crontab
+    	echo "$CRONTAB_M $CRONTAB_H * * * root /usr/bin/yum -y update > /var/tmp/yum_upadte.log 2>&1" >>/etc/crontab
     fi
 
 }
