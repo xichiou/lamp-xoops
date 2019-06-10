@@ -13,6 +13,7 @@
 ## 操作步驟：
 ### 1. 下載自動化腳本：
 #### 使用 Putty 軟體遠端登入伺服器，切換成 root 最高權限，複製以下指令貼到 Putty 視窗內
+#### 這個步驟只是下載自動化腳本到你的伺服器，資料夾位置 /root/lamp-xoops-master，對伺服器沒有影響，可以重複執行
 
     cd /root
     yum install -y unzip wget
@@ -24,11 +25,13 @@
     clear;
 
 
-### 2. 安裝 LAMP 套件成為網頁伺服器 (這個步驟只適合還沒安裝Apache+MySQL+PHP，因此這個步驟最多只能執行一次)
+### 2. 安裝 LAMP 套件成為網頁伺服器 
+#### 這個步驟只適合還沒安裝Apache+MySQL+PHP，因此這個步驟最多只要執行一次
 
     ./lamp.sh
 
 ### 3. 安裝 XOOPS 架站軟體
+#### 這個步驟引導你安裝 XOOPS ，一台伺服器可以安裝多個 XOOPS 網站
 
     ./xoops.sh
 
@@ -43,8 +46,8 @@
 
 ---
 ## 其他腳本介紹
-
-    使用以下腳本前先切換到腳本目錄
+#### 使用以下腳本前先切換到腳本目錄
+    
     cd /root/lamp-xoops-master
 
 ### A. 切換 PHP 版本
