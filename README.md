@@ -24,7 +24,7 @@
     clear;
 
 
-### 2. 安裝 LAMP 套件成為網頁伺服器
+### 2. 安裝 LAMP 套件成為網頁伺服器 (這個步驟只適合還沒安裝Apache+MySQL+PHP，步驟2只能執行一次)
 
     ./lamp.sh
 
@@ -43,6 +43,10 @@
 
 ---
 ## 其他腳本介紹
+
+    使用以下腳本前先切換到腳本目錄
+    cd /root/lamp-xoops-master
+
 ### A. 切換 PHP 版本
 
     ./change_php.php

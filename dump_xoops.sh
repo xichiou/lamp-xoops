@@ -11,6 +11,46 @@ export PATH
 SEARCH_PATH="/var/www/html"
 Dump_Xoops_DIR="/root/Dump_Xoops"
 
+get_char()
+{
+    SAVEDSTTY=`stty -g`
+    stty -echo
+    stty cbreak
+    dd if=/dev/tty bs=1 count=1 2> /dev/null
+    stty -raw
+    stty echo
+    stty $SAVEDSTTY
+}
+
+get_yes_no()
+{
+  while true
+  do
+    echo -n "$1 [y/n]"
+    ANSER=$(get_char)
+    case $ANSER in
+        y|Y)
+        echo ""
+        if [ $# -ge 2 ]; then
+          echo "-----------------------------"
+          echo -e "$2"
+          echo "-----------------------------"
+        fi
+        return 1
+        break
+        ;;
+        n|N)
+        echo ""
+        return 0
+        break
+        ;;
+        *)
+        echo -e "\t請輸入 y 或 n"
+    esac
+  done
+}
+
+
 function get_define()
 {
   parse_file=$1
@@ -101,8 +141,11 @@ fi
 
 if [ $# -ge 2 ]; then
   Dump_Xoops_DIR=$2
-  echo -e "\e[33m開始備份網站各項資料到 $Dump_Xoops_DIR\e[0m"
+  # echo -e "\e[33m開始備份網站各項資料到 $Dump_Xoops_DIR\e[0m"
 fi
+
+get_yes_no "你確定要執行備份工作?" "\e[33m開始備份網站各項資料到 $Dump_Xoops_DIR\e[0m"
+if [ $? -eq 0 ]; then exit 1; fi
 
 if ! [ -d $Dump_Xoops_DIR ]; then
   mkdir $Dump_Xoops_DIR -p
