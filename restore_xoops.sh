@@ -210,9 +210,9 @@ cp include/mainfile.php_ include/mainfile.php
 DIR_A_S=$(echo $DIR_A|sed 's/\//\\\//g')
 sed -i "s/__XOOPS_ROOT_PATH/$DIR_A_S/g" include/mainfile.php
 DIR_B_S=$(echo $DIR_B|sed 's/\//\\\//g')
-sed -i "s/__XOOPS_PATH/$DIR_B_S/g" include/mainfile.php
+sed -i "s/__XOOPS_VAR_PATH/$DIR_B_S/g" include/mainfile.php
 DIR_C_S=$(echo $DIR_C|sed 's/\//\\\//g')
-sed -i "s/__XOOPS_VAR_PATH/$DIR_C_S/g" include/mainfile.php
+sed -i "s/__XOOPS_PATH/$DIR_C_S/g" include/mainfile.php
 SITE_URL_S=$(echo $SITE_URL|sed 's/\//\\\//g')
 sed -i "s/__XOOPS_URL/$SITE_URL_S/g" include/mainfile.php
 cp include/mainfile.php $DIR_A
@@ -228,13 +228,13 @@ cp include/secure.php $DIR_B/data
 
 
 mysql -u root -p${mysql_password}<<EOF
-CREATE DATABASE X2${XOOPS_DB_NAME}
+CREATE DATABASE ${XOOPS_DB_NAME}
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 exit
 EOF
 
-mysql -u root -p${mysql_password} X2${XOOPS_DB_NAME} < $Restore_Xoops_DIR/xoops_db.sql
+mysql -u root -p${mysql_password} ${XOOPS_DB_NAME} < $Restore_Xoops_DIR/xoops_db.sql
 
 
 echo 復原完畢，請開啟 ${SITE_URL}

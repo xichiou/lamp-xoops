@@ -93,6 +93,10 @@ fi
 cd $SEARCH_PATH
 
 XOOPS_ROOT_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_ROOT_PATH)
+if [ "$XOOPS_ROOT_PATH" = "" ];then
+  XOOPS_ROOT_PATH=$SEARCH_PATH
+fi
+XOOPS_ROOT_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_ROOT_PATH)
 XOOPS_VAR_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_VAR_PATH)
 XOOPS_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_PATH)
 XOOPS_URL=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_URL)
