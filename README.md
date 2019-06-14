@@ -52,7 +52,7 @@
 
 ### A. 切換 PHP 版本
 
-    ./change_php.php
+    ./change_php.sh
 ---
 ### B. 關閉網路芳鄰分享功能
 
@@ -96,7 +96,10 @@
     curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/show_xoops_var.sh | bash -s -- /var/www/html/xoops
 
 ---
-### I. 打包您現有的XOOPS網站的程式、資料庫，再傳輸到遠端新伺服器上
+### I. 打包您現有的XOOPS網站的程式、資料庫，做為備份整個網站或是傳輸到遠端新伺服器上
+
+    ./dump_xoops_var.sh
+    
 #### 直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
     curl -s https://raw.githubusercontent.com/xichiou/lamp-xoops/master/dump_xoops.sh | bash -s -- /var/www/html/xoops
     
