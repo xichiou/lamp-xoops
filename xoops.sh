@@ -8,11 +8,11 @@ export PATH
 #   Intro:  https://github.com/xichiou/lamp-xoops
 #===============================================================================================
 
-TADTOOLS_VERSION=3.26
-TADTOOLS_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1961#tadtools_3.26_20190509.zip"
+TADTOOLS_VERSION=3.27
+TADTOOLS_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2010#tadtools_3.27_20190613.zip"
 
-TAD_ADM_VERSION=2.81
-TAD_ADM_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1962#tad_adm_2.81_20190509.zip"
+TAD_ADM_VERSION=2.82
+TAD_ADM_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2015#tad_adm_2.82_20190613.zip"
 
 clear
 

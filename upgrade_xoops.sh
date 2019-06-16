@@ -7,11 +7,11 @@ export PATH
 #   Author: 邱顯錫 (Chiou, Hsienhsi)
 #   Intro:  https://github.com/xichiou/lamp-xoops
 #===============================================================================================
-TADTOOLS_VERSION=3.26
-TADTOOLS_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1961#tadtools_3.26_20190509.zip"
+TADTOOLS_VERSION=3.27
+TADTOOLS_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2010#tadtools_3.27_20190613.zip"
 
-TAD_ADM_VERSION=2.81
-TAD_ADM_URL="http://120.115.2.90/modules/tad_modules/index.php?op=tufdl&files_sn=1962#tad_adm_2.81_20190509.zip"
+TAD_ADM_VERSION=2.82
+TAD_ADM_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2015#tad_adm_2.82_20190613.zip"
 
 XOOPS_CORE=2.5.9
 
@@ -110,7 +110,7 @@ then
     TAD_ADM_VERSION_CURRENT_NUM=$(($TAD_ADM_VERSION_CURRENT_NUM*10))
 fi
 #echo $TAD_ADM_VERSION_CURRENT_NUM
-if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 281 ]
+if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 282 ]
 then
     echo -e "\e[31m...需要更新\e[0m\c"
     NEED_UPGRADE=1
@@ -126,7 +126,7 @@ then
     TADTOOLS_VERSION_CURRNET_NUM=$(($TADTOOLS_VERSION_CURRNET_NUM*10))
 fi
 #echo $TADTOOLS_VERSION_CURRNET_NUM
-if [ $TADTOOLS_VERSION_CURRNET_NUM -lt 326 ]
+if [ $TADTOOLS_VERSION_CURRNET_NUM -lt 327 ]
 then
     echo -e "\e[31m...需要更新\e[0m\c"
     NEED_UPGRADE=1
@@ -167,8 +167,8 @@ if [ $? -eq 0 ]; then exit 1; fi
 cd "$XOOPS_ROOT_PATH/modules"
 
 MESSAGE=""
-if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 281 ]; then
-  echo "進行更新[模組]站長工具箱 ==> 2.81"
+if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 282 ]; then
+  echo "進行更新[模組]站長工具箱 ==> 2.82"
   echo "下載模組並解開： tad_adm 站長工具箱..."
   if ! [ -f tad_adm_${TAD_ADM_VERSION}.zip ];then
     wget $TAD_ADM_URL -O tad_adm_${TAD_ADM_VERSION}.zip
@@ -182,8 +182,8 @@ if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 281 ]; then
   fi
 fi
 
-if [ $TADTOOLS_VERSION_CURRNET_NUM -lt 326 ]; then
-  echo "進行更新[模組]tadtools 工具包 ==> 3.26"
+if [ $TADTOOLS_VERSION_CURRNET_NUM -lt 327 ]; then
+  echo "進行更新[模組]tadtools 工具包 ==> 3.27"
   echo "下載模組並解開： tadtools 工具包..."
   if ! [ -f tadtools_${TADTOOLS_VERSION}.zip ];then
     wget $TADTOOLS_URL -O tadtools_${TADTOOLS_VERSION}.zip
