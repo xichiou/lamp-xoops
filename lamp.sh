@@ -164,6 +164,48 @@ function pre_installation_settings(){
     echo ""
     echo ""
 
+    # Choose MariaDB version
+    while true
+    do
+    echo "請選擇 MariaDB 版本:"
+    echo -e "\t\033[32m1\033[0m. 安裝 MariaDB-5.5"
+    echo -e "\t\033[32m2\033[0m. 安裝 MariaDB-10.3"
+    echo -e "\t\033[32m3\033[0m. 安裝 MariaDB-10.4"
+    read -p "請輸入數字:(或按下 ENTER 直接選擇 3) " MariaDB_version
+    [ -z "$MariaDB_version" ] && MariaDB_version=3
+    case $MariaDB_version in
+        1)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 MariaDB-5.5"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        2)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 MariaDB-10.3"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        3)
+        #echo ""
+        echo "---------------------------"
+        echo "你選擇安裝 MariaDB-10.4"
+        echo "---------------------------"
+        #echo ""
+        break
+        ;;
+        *)
+        echo $MSG_MUST_NUM "1,2,3"
+    esac
+    done
+
+    echo ""
+    echo ""
+
     get_char(){
         SAVEDSTTY=`stty -g`
         stty -echo
@@ -349,18 +391,43 @@ function install_database(){
 function install_mariadb(){
     # Install MariaDB
     echo "開始安裝 MariaDB..."
+    if [ $MariaDB_version -eq 2 ]; then
+        cp include/MariaDB.repo /etc/yum.repos.d
+        sed -i 's/10.4/10.3/g' /etc/yum.repos.d/MariaDB.repo
+    elif [ $MariaDB_version -eq 3 ]; then
+        cp include/MariaDB.repo /etc/yum.repos.d
+    fi
+
     yum -y install mariadb mariadb-server
+
+    if [ $MariaDB_version -gt 1 ]; then
+        # 關閉 STRICT 模式
+        echo [mysqld] >> /etc/my.cnf
+        echo sql-mode=\"NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION\" >> /etc/my.cnf
+    fi
+
     systemctl enable mariadb
     systemctl start mariadb
     /usr/bin/mysqladmin password $dbrootpwd
+
+    if [ $MariaDB_version -eq 3 ]; then
+        SET_MYSQL_COMMOND_1=""
+        SET_MYSQL_COMMOND_2="ALTER USER root@localhost IDENTIFIED VIA mysql_native_password USING PASSWORD('$dbrootpwd');"
+    else
+        SET_MYSQL_COMMOND_1="UPDATE mysql.user SET password=password('$dbrootpwd') WHERE user='root';"
+        SET_MYSQL_COMMOND_2=""
+    fi
+
     /usr/bin/mysql -uroot -p$dbrootpwd <<EOF
 drop database if exists test;
-delete from mysql.user where user='';
-update mysql.user set password=password('$dbrootpwd') where user='root';
-delete from mysql.user where not (user='root') ;
+DELETE FROM mysql.user WHERE user='';
+DELETE FROM mysql.user WHERE NOT (user='root') ;
+$SET_MYSQL_COMMOND_1
 flush privileges;
+$SET_MYSQL_COMMOND_2
 exit
 EOF
+
     echo "MariaDB 安裝完畢!"
 }
 
