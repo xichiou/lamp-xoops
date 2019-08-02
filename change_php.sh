@@ -167,6 +167,8 @@ function install_php(){
     sed -i 's/^.*post_max_size.*=.*/post_max_size = 220M/g' /etc/php.ini
     sed -i 's/^.*upload_max_filesize.*=.*/upload_max_filesize = 200M/g' /etc/php.ini
 
+    cp /etc/httpd/conf.d/phpMyAdmin.conf.rpmsave /etc/httpd/conf.d/phpMyAdmin.conf
+
     systemctl restart httpd
 
     echo ""
