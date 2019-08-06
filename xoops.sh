@@ -8,14 +8,14 @@ export PATH
 #   Intro:  https://github.com/xichiou/lamp-xoops
 #===============================================================================================
 
-TADTOOLS_VERSION=3.29
-TADTOOLS_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2042#tadtools_3.29_20190724.zip"
+TADTOOLS_VERSION=3.3
+TADTOOLS_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2056#tadtools_3.3_20190805.zip"
 
 TAD_ADM_VERSION=2.83
 TAD_ADM_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2049#tad_adm_2.83_20190728.zip"
 
-TAD_THEMES_VERSION=5.6
-TAD_THEMES_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2043#tad_themes_5.6_20190725.zip"
+#TAD_THEMES_VERSION=5.6
+#TAD_THEMES_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2043#tad_themes_5.6_20190725.zip"
 
 clear
 
@@ -53,7 +53,7 @@ fi
 rm -rf XoopsCore25-2.5.10
 rm -rf tadtools
 rm -rf tad_adm
-rm -rf tad_themes
+#rm -rf tad_themes
 
 echo "下載 XOOPS 2.5.10 安裝程式並解開..."
 if ! [ -f xoops-2.5.10.zip ];then
@@ -87,12 +87,12 @@ fi
 unzip -q tad_adm_${TAD_ADM_VERSION}.zip
 chown -R apache.apache tad_adm
 
-echo "下載模組並解開： Tad Themes 佈景管理..."
-if ! [ -f tad_themes_${TAD_THEMES_VERSION}.zip ];then
-	wget $TAD_THEMES_URL -O tad_themes_${TAD_THEMES_VERSION}.zip
-fi
-unzip -q tad_themes_${TAD_THEMES_VERSION}.zip
-chown -R apache.apache tad_themes
+# echo "下載模組並解開： Tad Themes 佈景管理..."
+# if ! [ -f tad_themes_${TAD_THEMES_VERSION}.zip ];then
+# 	wget $TAD_THEMES_URL -O tad_themes_${TAD_THEMES_VERSION}.zip
+# fi
+# unzip -q tad_themes_${TAD_THEMES_VERSION}.zip
+# chown -R apache.apache tad_themes
 
 #wget --no-check-certificate https://github.com/tad0616/tad_themes/archive/master.zip -O tad_themes.zip
 #unzip -q tad_themes.zip
