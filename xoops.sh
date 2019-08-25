@@ -11,8 +11,8 @@ export PATH
 TADTOOLS_VERSION=3.3
 TADTOOLS_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2056#tadtools_3.3_20190805.zip"
 
-TAD_ADM_VERSION=2.83
-TAD_ADM_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2049#tad_adm_2.83_20190728.zip"
+TAD_ADM_VERSION=2.84
+TAD_ADM_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2065#tad_adm_2.84_20190817.zip"
 
 #TAD_THEMES_VERSION=5.6
 #TAD_THEMES_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2043#tad_themes_5.6_20190725.zip"
