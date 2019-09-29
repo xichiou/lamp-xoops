@@ -8,8 +8,8 @@ export PATH
 #   Intro:  https://github.com/xichiou/lamp-xoops
 #===============================================================================================
 
-TADTOOLS_VERSION=3.3
-TADTOOLS_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2056#tadtools_3.3_20190805.zip"
+TADTOOLS_VERSION=3.31
+TADTOOLS_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2083#tadtools_3.31_20190923.zip"
 
 TAD_ADM_VERSION=2.84
 TAD_ADM_URL="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2065#tad_adm_2.84_20190817.zip"
@@ -53,7 +53,7 @@ fi
 rm -rf XoopsCore25-2.5.10
 rm -rf tadtools
 rm -rf tad_adm
-#rm -rf tad_themes
+# rm -rf tad_themes
 
 echo "下載 XOOPS 2.5.10 安裝程式並解開..."
 if ! [ -f xoops-2.5.10.zip ];then
@@ -185,7 +185,7 @@ if [ $SITE_root_type -eq 1 ]; then
 	cd ..
 	mv tadtools /var/www/html/modules/tadtools
 	mv tad_adm /var/www/html/modules/tad_adm
-	mv tad_themes /var/www/html/modules/tad_themes
+	# mv tad_themes /var/www/html/modules/tad_themes
 
   if [ -d "/root/DB_Backup/${IP}" ]; then
     echo "Directory /root/DB_Backup/${IP} exists."
@@ -220,7 +220,7 @@ if [ $SITE_root_type -eq 2 ]; then
 	cd ..
 	mv tadtools /var/www/html/${SITE_root}/modules/tadtools
 	mv tad_adm /var/www/html/${SITE_root}/modules/tad_adm
-	mv tad_themes /var/www/html/${SITE_root}/modules/tad_themes
+	# mv tad_themes /var/www/html/${SITE_root}/modules/tad_themes
 
 
 	if [ -d "/root/DB_Backup/${IP}" ]; then
