@@ -93,12 +93,20 @@ fi
 cd $SEARCH_PATH
 
 XOOPS_ROOT_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_ROOT_PATH)
-if [ "$XOOPS_ROOT_PATH" = "" ];then
+if [[ "$XOOPS_ROOT_PATH" =~ "$" ]];then
   XOOPS_ROOT_PATH=$SEARCH_PATH
 fi
-XOOPS_ROOT_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_ROOT_PATH)
+
 XOOPS_VAR_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_VAR_PATH)
+if [[ "$XOOPS_VAR_PATH" =~ "$" ]];then
+  XOOPS_VAR_PATH=${SEARCH_PATH}/../xoops_data
+fi
+
 XOOPS_PATH=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_PATH)
+if [[ "$XOOPS_PATH" =~ "$" ]];then
+  XOOPS_PATH=${SEARCH_PATH}/../xoopslib
+fi
+
 XOOPS_URL=$(get_define ${SEARCH_PATH}/mainfile.php XOOPS_URL)
 TAD_ADM_VERSION_CURRENT=$(get_var modules/tad_adm/xoops_version.php version)
 TADTOOLS_VERSION_CURRNET=$(get_var modules/tadtools/xoops_version.php version)
@@ -132,7 +140,6 @@ echo -e "[設定]XOOPS_DB_PREFIX 資料庫前置碼: \e[32m${XOOPS_DB_PREFIX}\e[
 echo -e "[設定]XOOPS_DB_CHARSET 資料庫編碼: \e[32m${XOOPS_DB_CHARSET}\e[0m"
 echo -e "[設定]XOOPS_DB_TYPE 資料庫: \e[32m${XOOPS_DB_TYPE}\e[0m"
 
-echo -e "[設定]XOOPS_ROOT_PATH: \e[32m$XOOPS_ROOT_PATH\e[0m"
 if [ $XOOPS_ROOT_PATH != $SEARCH_PATH ]; then
   echo "XOOPS_ROOT_PATH 和實際的網站放置的資料夾不同，可能是使用 ln -s 符號連結!"
   #exit 1002
