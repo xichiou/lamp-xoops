@@ -109,4 +109,7 @@
 
     ./restore_xoops.sh 資料夾路徑
 
+### K. 顯示主機安裝 Apache、MySQL、PHP 的版本
 
+    ./show_lamp_ver.sh
+---
