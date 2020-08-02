@@ -345,7 +345,7 @@ function pre_installation_settings(){
     fi
 
 
-    yum -y install vim-enhanced
+    yum -y install vim-enhanced nano
     echo "alias vi='vim'" >> /etc/profile
     echo "set nu" >> /etc/vimrc
     source /etc/profile
