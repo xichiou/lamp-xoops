@@ -11,6 +11,11 @@
 
 ---
 
+## 使用文件
+### 請參考 [XOOPS 架站講義](http://it.chc.edu.tw "XOOPS 研習講義")
+
+---
+
 ## 操作步驟：
 ### 1. 下載自動化腳本：
 #### 使用 Putty 軟體遠端登入伺服器，切換成 root 最高權限，複製以下指令貼到 Putty 視窗內
@@ -119,4 +124,10 @@
 ### L. 更新 MySQL(MariaDB) 版本
 
     ./update_mariadb.sh
+
+---
+### M. 寫入 .htaccess 禁止開啟 adminer.php 資料庫管理程式
+#### 另外需要手動修改 /etc/httpd/conf/httpd.conf，請參考上面講義
+
+    ./find_pma.sh
 
