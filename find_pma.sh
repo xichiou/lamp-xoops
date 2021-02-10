@@ -11,7 +11,7 @@ str=${str/adm.php/}
 get1=${str/adminer.php/}
 #echo result: $get1
 
-cat >>${get1}.htaccess  <<EOF
+cat >${get1}.htaccess  <<EOF
 <Files pma.php>
     AuthName "Prompt"
     AuthType Basic
