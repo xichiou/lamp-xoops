@@ -81,12 +81,15 @@
     ./update.sh
 ---
 ### G. 檢查XOOPS網站運行的版本並且更新
-#### 更新XOOPS核心到2.5.9，[模組]站長工具箱到2.81，[模組]tadtools到3.26和BootStrap4升級補丁，這些是近期最重要的更新
+#### 更新XOOPS核心到2.5.9，[模組]站長工具箱到2.82，[模組]tadtools到3.26和BootStrap4升級補丁，這些是近期最重要的更新
 
     ./upgrade_xoops.sh
 
 #### 或是直接指定你的網站路徑當作參數，例如: /var/www/html/xoops
     ./upgrade_xoops.sh /var/www/html/xoops
+
+#### 現在也有直接更新到 2.5.10 腳本，用法同上
+    ./upgrade_xoops_2.5.10.sh    
 
 ---
 ### H. 顯示您現有的XOOPS網站的各項參數，方便移機用
@@ -127,7 +130,8 @@
 
 ---
 ### M. 寫入 .htaccess 禁止開啟 adminer.php 資料庫管理程式
-#### 另外需要手動修改 /etc/httpd/conf/httpd.conf，請參考上面講義
+#### 需要先設定 Apache 的 AllowOverride ALL
+    ./enable_allowoverride.sh
 
     ./find_pma.sh
 

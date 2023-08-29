@@ -138,7 +138,7 @@ echo -e "[核心]XOOPS: \e[32m${XOOPS_VERSION_CURRENT}\e[0m\c"
 XOOPS_VERSION_CURRENT_NUM=$(echo $XOOPS_VERSION_CURRENT|cut -d"." -f 3) #只留下第三個數字
 XOOPS_VERSION_CURRENT_NUM=$(($XOOPS_VERSION_CURRENT_NUM))
 #echo $XOOPS_VERSION_CURRENT_NUM
-if [ $XOOPS_VERSION_CURRENT_NUM -lt 9 ]
+if [ $XOOPS_VERSION_CURRENT_NUM -lt 10 ]
 then
     echo -e "\e[31m...需要更新\e[0m\c"
     NEED_UPGRADE=1
@@ -163,7 +163,7 @@ if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 282 ]; then
   echo "進行更新[模組]站長工具箱 ==> 2.82"
   echo "下載模組並解開： tad_adm 站長工具箱..."
   if ! [ -f tad_adm_${TAD_ADM_VERSION}.zip ];then
-    wget $TAD_ADM_URL -O tad_adm_${TAD_ADM_VERSION}.zip
+    wget $TAD_ADM_URL -O tad_adm_${TAD_ADM_VERSION}.zip --no-check-certificate
   fi
   if [ -f tad_adm_${TAD_ADM_VERSION}.zip ];then
     rm -rf tad_adm
@@ -178,7 +178,7 @@ if [ $TADTOOLS_VERSION_CURRNET_NUM -lt 327 ]; then
   echo "進行更新[模組]tadtools 工具包 ==> 3.27"
   echo "下載模組並解開： tadtools 工具包..."
   if ! [ -f tadtools_${TADTOOLS_VERSION}.zip ];then
-    wget $TADTOOLS_URL -O tadtools_${TADTOOLS_VERSION}.zip
+    wget $TADTOOLS_URL -O tadtools_${TADTOOLS_VERSION}.zip --no-check-certificate
   fi
   if [ -f tadtools_${TADTOOLS_VERSION}.zip ];then
     rm -rf tadtools
@@ -196,7 +196,7 @@ if [ $XOOPS_VERSION_CURRENT_NUM -lt 10 ]; then
   rm -rf XoopsCore25-2.5.10_for_upgrade
   mkdir XoopsCore25-2.5.10_for_upgrade
   cd XoopsCore25-2.5.10_for_upgrade
-  wget "http://campus-xoops.tn.edu.tw/modules/tad_modules/xoops.php?op=tufdl&files_sn=1951#XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip" -O XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip
+  wget "http://campus-xoops.tn.edu.tw/modules/tad_modules/xoops.php?op=tufdl&files_sn=1951#XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip" -O XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip --no-check-certificate
   if [ -f XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip ];then
     unzip -q XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip
     chown -R apache.apache .
@@ -204,6 +204,9 @@ if [ $XOOPS_VERSION_CURRENT_NUM -lt 10 ]; then
     cp -rf htdocs/* $XOOPS_ROOT_PATH
     cp -rf xoops_data/* $XOOPS_VAR_PATH
     cp -rf xoops_lib/* $XOOPS_PATH
+    chown apache.apache -R ${XOOPS_ROOT_PATH}
+    chown apache.apache -R ${XOOPS_VAR_PATH}
+    chown apache.apache -R ${XOOPS_PATH}
     chmod 777 $XOOPS_ROOT_PATH/mainfile.php
     chmod 777 $XOOPS_VAR_PATH/data/secure.php
     MESSAGE="${MESSAGE}\n請使用瀏覽器開啟以下連結進行進行更新[核心]XOOPS\n\e[32m${XOOPS_URL}/upgrade\e[0m\n\n更新完畢後請自行執行以下指令\n\n"

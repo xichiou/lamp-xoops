@@ -171,7 +171,7 @@ if [ $TAD_ADM_VERSION_CURRENT_NUM -lt 282 ]; then
   echo "進行更新[模組]站長工具箱 ==> 2.82"
   echo "下載模組並解開： tad_adm 站長工具箱..."
   if ! [ -f tad_adm_${TAD_ADM_VERSION}.zip ];then
-    wget $TAD_ADM_URL -O tad_adm_${TAD_ADM_VERSION}.zip
+    wget $TAD_ADM_URL -O tad_adm_${TAD_ADM_VERSION}.zip --no-check-certificate
   fi
   if [ -f tad_adm_${TAD_ADM_VERSION}.zip ];then
     rm -rf tad_adm
@@ -186,7 +186,7 @@ if [ $TADTOOLS_VERSION_CURRNET_NUM -lt 327 ]; then
   echo "進行更新[模組]tadtools 工具包 ==> 3.27"
   echo "下載模組並解開： tadtools 工具包..."
   if ! [ -f tadtools_${TADTOOLS_VERSION}.zip ];then
-    wget $TADTOOLS_URL -O tadtools_${TADTOOLS_VERSION}.zip
+    wget $TADTOOLS_URL -O tadtools_${TADTOOLS_VERSION}.zip --no-check-certificate
   fi
   if [ -f tadtools_${TADTOOLS_VERSION}.zip ];then
     rm -rf tadtools
@@ -203,7 +203,7 @@ if [ ! -f "${XOOPS_ROOT_PATH}/class/xoopsform/renderer/XoopsFormRendererBootstra
   echo "缺少 BootStrap4升級補丁"
   echo "下載更新並解開： BootStrap4升級補丁"
   if ! [ -f bs4_upgrade.zip ];then
-    wget 'http://120.115.2.90/modules/tad_modules/xoops.php?op=tufdl&files_sn=1845#bs4_upgrade_20190101.zip' -O bs4_upgrade.zip
+    wget 'http://120.115.2.90/modules/tad_modules/xoops.php?op=tufdl&files_sn=1845#bs4_upgrade_20190101.zip' -O bs4_upgrade.zip --no-check-certificate
   fi
   unzip -q -o bs4_upgrade.zip
   cp -fr htdocs/* ${XOOPS_ROOT_PATH}/
@@ -216,7 +216,7 @@ fi
 
 if [ $XOOPS_VERSION_CURRENT_NUM -lt 9 ]; then
   echo "進行更新[核心]XOOPS  ==> XOOPS_CORE"
-  wget "http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=146&cat_sn=16&name=xoopscore25-2.5.9_tw_for_upgrade_20170803.zip" -O xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
+  wget "http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=146&cat_sn=16&name=xoopscore25-2.5.9_tw_for_upgrade_20170803.zip" -O xoopscore25-2.5.9_tw_for_upgrade_20170803.zip --no-check-certificate
   if [ -f xoopscore25-2.5.9_tw_for_upgrade_20170803.zip ];then
     rm -rf XoopsCore25-2.5.9_for_upgrade
     unzip -q xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
@@ -226,6 +226,9 @@ if [ $XOOPS_VERSION_CURRENT_NUM -lt 9 ]; then
     cp -rf htdocs/* $XOOPS_ROOT_PATH
     cp -rf xoops_data/* $XOOPS_VAR_PATH
     cp -rf xoops_lib/* $XOOPS_PATH
+    chown apache.apache -R ${XOOPS_ROOT_PATH}
+    chown apache.apache -R ${XOOPS_VAR_PATH}
+    chown apache.apache -R ${XOOPS_PATH}
     chmod 777 $XOOPS_ROOT_PATH/mainfile.php
     chmod 777 $XOOPS_VAR_PATH/data/secure.php
     MESSAGE="${MESSAGE}\n請使用瀏覽器開啟以下連結進行進行更新[核心]XOOPS\n\e[32m${XOOPS_URL}/upgrade\e[0m\n\n更新完畢後請自行執行以下指令\n\n"
