@@ -381,6 +381,7 @@ function install_apache(){
     yum -y install httpd
     sed -i 's/Options Indexes FollowSymLinks/Options FollowSymLinks/g' /etc/httpd/conf/httpd.conf
     sed -i 's/DirectoryIndex index.html$/DirectoryIndex index.html index.htm/g' /etc/httpd/conf/httpd.conf
+    sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/i' /etc/httpd/conf/httpd.conf
     systemctl enable httpd
     systemctl start httpd
     chown -R apache.apache /var/www

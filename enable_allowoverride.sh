@@ -10,7 +10,7 @@ export PATH
 
 clear
 
-sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/i' /etc/httpd/conf/httpd.conf
+sed -i '/<Directory "\/var\/www\/html">/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/i' /etc/httpd/conf/httpd.conf
 
 systemctl reload httpd
 

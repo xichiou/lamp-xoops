@@ -13,7 +13,7 @@ TADTOOLS_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tu
 TAD_ADM_VERSION=2.82
 TAD_ADM_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2027#tad_adm_2.82_20190702.zip"
 
-XOOPS_CORE=2.5.9
+XOOPS_CORE=2.5.10
 
 get_char()
 {
@@ -138,7 +138,7 @@ echo -e "[核心]XOOPS: \e[32m${XOOPS_VERSION_CURRENT}\e[0m\c"
 XOOPS_VERSION_CURRENT_NUM=$(echo $XOOPS_VERSION_CURRENT|cut -d"." -f 3) #只留下第三個數字
 XOOPS_VERSION_CURRENT_NUM=$(($XOOPS_VERSION_CURRENT_NUM))
 #echo $XOOPS_VERSION_CURRENT_NUM
-if [ $XOOPS_VERSION_CURRENT_NUM -lt 9 ]
+if [ $XOOPS_VERSION_CURRENT_NUM -lt 10 ]
 then
     echo -e "\e[31m...需要更新\e[0m\c"
     NEED_UPGRADE=1
@@ -158,7 +158,6 @@ if [ $NEED_UPGRADE == 0 ]; then
 fi
 
 
-# get_yes_no "關閉這台伺服器 IPV6 網路功能，你要關閉?"
 get_yes_no "你要開始安裝更新?" "執行安裝更新"
 if [ $? -eq 0 ]; then exit 1; fi
 
@@ -214,14 +213,15 @@ if [ ! -f "${XOOPS_ROOT_PATH}/class/xoopsform/renderer/XoopsFormRendererBootstra
 fi
 
 
-if [ $XOOPS_VERSION_CURRENT_NUM -lt 9 ]; then
+if [ $XOOPS_VERSION_CURRENT_NUM -lt 10 ]; then
   echo "進行更新[核心]XOOPS  ==> XOOPS_CORE"
-  wget "http://120.115.2.90/modules/tad_uploader/index.php?op=dlfile&cfsn=146&cat_sn=16&name=xoopscore25-2.5.9_tw_for_upgrade_20170803.zip" -O xoopscore25-2.5.9_tw_for_upgrade_20170803.zip --no-check-certificate
-  if [ -f xoopscore25-2.5.9_tw_for_upgrade_20170803.zip ];then
-    rm -rf XoopsCore25-2.5.9_for_upgrade
-    unzip -q xoopscore25-2.5.9_tw_for_upgrade_20170803.zip
-    chown -R apache.apache XoopsCore25-2.5.9_for_upgrade
-    cd XoopsCore25-2.5.9_for_upgrade
+  rm -rf XoopsCore25-2.5.10_for_upgrade
+  mkdir XoopsCore25-2.5.10_for_upgrade
+  cd XoopsCore25-2.5.10_for_upgrade
+  wget "http://campus-xoops.tn.edu.tw/modules/tad_modules/xoops.php?op=tufdl&files_sn=1951#XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip" -O XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip --no-check-certificate
+  if [ -f XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip ];then
+    unzip -q XoopsCore25-2.5.10_tw_for_upgrade_20190503.zip
+    chown -R apache.apache .
     rm -rf $XOOPS_ROOT_PATH/modules/system
     cp -rf htdocs/* $XOOPS_ROOT_PATH
     cp -rf xoops_data/* $XOOPS_VAR_PATH
