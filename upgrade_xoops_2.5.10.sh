@@ -11,7 +11,7 @@ TADTOOLS_VERSION=3.27
 TADTOOLS_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2010#tadtools_3.27_20190613.zip"
 
 TAD_ADM_VERSION=2.82
-TAD_ADM_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2015#tad_adm_2.82_20190613.zip"
+TAD_ADM_URL="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?op=tufdl&files_sn=2027#tad_adm_2.82_20190702.zip"
 
 XOOPS_CORE=2.5.10
 
